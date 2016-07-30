@@ -1,0 +1,114 @@
+[INFO  - 2016-07-29T07:32:08.763Z] GhostDriver - Main - running on port 54754
+[INFO  - 2016-07-29T07:32:09.231Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-07-29T07:32:09.231Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.customHeaders:  - {}
+[INFO  - 2016-07-29T07:32:09.231Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-10.11 (El Capitan)-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2016-07-29T07:32:09.232Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 8eca05b0-555e-11e6-9a58-dffb7a81f41d
+[ERROR - 2016-07-29T07:32:24.535Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:32:24.536Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:32:29.116Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:32:29.116Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:34:57.748Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:34:57.748Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:35.609Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:35.609Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:42.815Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:42.815Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:46.596Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:46.597Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:54.003Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:35:54.003Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:36:08.657Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:36:08.657Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:36:16.646Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:36:16.646Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:36:51.907Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:36:51.907Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[INFO  - 2016-07-29T07:37:08.768Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[ERROR - 2016-07-29T07:37:51.409Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:37:51.409Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:38:08.146Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - msg: TypeError: null is not an object (evaluating 'b.match(/Mac OS X ((\d+_?){2,3})/i)[1]')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-07-29T07:38:08.146Z] Session [8eca05b0-555e-11e6-9a58-dffb7a81f41d] - page.onError - stack:
+  Agent (http://adcreative.naver.com/ad3/js/min/da.min.js?150107:1)
+  initAd (http://ad.naver.com/adshow?unit=567A:52)
+  onload (http://ad.naver.com/adshow?unit=567A:38)
+
+  phantomjs://platform/console++.js:263 in error
