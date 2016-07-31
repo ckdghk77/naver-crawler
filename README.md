@@ -24,11 +24,10 @@ pip install selenium
 **naver_blog_crawler.py** will generate 3 files.  
   * Urls : It cotains the list of urls to the related blog posts of a query.
 ```
-"박근혜","박근혜 레임덕","2016.06.24.","20160504","http://blog.daum.net/oursociety/629"
-"박근혜","박근혜 레임덕","2016.04.14.","20160504","http://dolmengee.tistory.com/503"
-"박근혜","박근혜 레임덕","2016.07.20.","20160504","http://blog.naver.com/hosabi55?Redirect=Log&logNo=220767101946"
-"박근혜","박근혜 레임덕","2016.05.20.","20160504","http://sjh25.blog.me/220715122072"
-"박근혜","박근혜 레임덕","2016.04.14.","20160504","http://blog.naver.com/yukin48?Redirect=Log&logNo=220682949484"
+"박근혜","박근혜 레임덕","2016.05.20.","20160504","http://enlucha.tistory.com/473"
+"박근혜","박근혜 레임덕","2016.05.23.","20160504","http://euihyone.blog.me/220717449442"
+"박근혜","박근혜 레임덕","2016.06.24.","20160601","http://blog.daum.net/oursociety/629"
+"박근혜","박근혜 레임덕","2016.06.11.","20160601","http://blog.naver.com/speconomy?Redirect=Log&logNo=220733414055"
 ```
   * Number of posts : It has the number of the related posts created of a query.
 ```
@@ -37,8 +36,9 @@ pip install selenium
 "이명박","이명박 4대강","20160504",265
 "이명박","이명박 4대강","20160601",274
 ```
-  * Blog posts : It contains actual text of blog post.
+  * Blog posts : It contains actual text of blog posts.
 ```
 "박근혜","박근혜 레임덕","2016.07.20.","20160504","http://m.blog.naver.com/hosabi55/220767101946","박근혜 정부 레임덕 가속화시키는...
 "박근혜","박근혜 레임덕","2016.07.14.","20160504","http://m.blog.naver.com/ertt2002/220761580768","'레임덕 박근혜, '정권 안보' 목적 사드 배치'...
 ```
+#### 2. Naver Webtoon
