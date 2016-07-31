@@ -1,32 +1,44 @@
 # web-crawling-naver
-## Synopsis
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+  **web-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is the biggest Korean search engine, using [selenium](http://selenium-python.readthedocs.io/). The list of sites that **web-crawling-naver** can archive is as follows:
 
-## Code Example
-
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
-
-## Motivation
-
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+1. [Naver Blog](http://section.blog.naver.com/)
+2. [Naver Cafe](http://section.cafe.naver.com/)
+3. [Naver News](http://news.naver.com/)
+4. [Naver Webtoon](http://comic.naver.com/index.nhn)
+5. [Naver People Search](http://people.search.naver.com/)
+6. [Naver Movie](http://movie.naver.com/)
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+### Selenium
+>You can download Python bindings for Selenium from the [PyPI page for selenium package](https://pypi.python.org/pypi/selenium). However, a better approach would be to use [pip](https://pip.pypa.io/en/latest/installing/) to install the selenium package. Python 3.5 has pip available in the [standard library](https://docs.python.org/3.5/installing/index.html). Using *pip*, you can install selenium like this:
+```
+pip install selenium
+```
 
-## API Reference
+## Usage
+#### 1. Naver Blog
+  If you have a list of queries and wish to retreive related blog posts of the queries, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things on a particular period of time.
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
-
-## Contributors
-
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
-## License
-
-A short snippet describing the license (MIT, Apache, etc.)
+**naver_blog_crawler.py** will generate 3 files.  
+  * Urls : It cotains the list of urls to the related blog posts of a query.
+```
+"박근혜","박근혜 레임덕","2016.06.24.","20160504","http://blog.daum.net/oursociety/629"
+"박근혜","박근혜 레임덕","2016.04.14.","20160504","http://dolmengee.tistory.com/503"
+"박근혜","박근혜 레임덕","2016.07.20.","20160504","http://blog.naver.com/hosabi55?Redirect=Log&logNo=220767101946"
+"박근혜","박근혜 레임덕","2016.05.20.","20160504","http://sjh25.blog.me/220715122072"
+"박근혜","박근혜 레임덕","2016.04.14.","20160504","http://blog.naver.com/yukin48?Redirect=Log&logNo=220682949484"
+```
+  * Number of posts : It has the number of the related posts created of a query.
+```
+"박근혜","박근혜 레임덕","20160504",201
+"박근혜","박근혜 레임덕","20160601",153
+"이명박","이명박 4대강","20160504",265
+"이명박","이명박 4대강","20160601",448
+```
+  * Blog posts : It contains actual text of blog post.
+```
+"박근혜","박근혜 레임덕","2016.07.20.","20160504","http://m.blog.naver.com/hosabi55/220767101946","박근혜 정부 레임덕 가속화시키는...
+"박근혜","박근혜 레임덕","2016.07.14.","20160504","http://m.blog.naver.com/ertt2002/220761580768","'레임덕 박근혜, '정권 안보' 목적 사드 배치'...
+```

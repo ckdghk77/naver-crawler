@@ -32,8 +32,9 @@ def maxNumberFinder(soup):
 
 def urlGenerator(searchQuery, fromDate, toDate, pageNum):
     query=searchQuery.replace(searchQuery,parse.quote(searchQuery))
-    searchUrl='https://search.naver.com/search.naver?where=post&query='+query+'&ie=utf8&st=sim&sm=tab_opt&date_from='+fromDate+'&date_to='+toDate+'&date_option=6&srchby=all&dup_remove=1&post_blogurl=&post_blogurl_without=&nso=so%3Ar%2Ca%3Aall%2Cp%3Afrom'+fromDate+'to'+toDate+'&mson=0'
-    searchUrl = searchUrl + '&start=' + pageNum
+    searchUrl='https://search.naver.com/search.naver?where=post&query='+query+'&ie=utf8&st=sim&sm=tab_opt&date_from='+fromDate+'&date_to='+toDate+'&date_option=8&srchby=all&dup_remove=1&post_blogurl=&post_blogurl_without=&nso=so%3Ar%2Ca%3Aall%2Cp%3Afrom'+fromDate+'to'+toDate+'&mson=0'
+    if pageNum:
+        searchUrl = searchUrl + '&start=' + pageNum
     return searchUrl
 
 def dateRangeGenerator(startingDate, toDate):
@@ -96,10 +97,11 @@ def urlRetriever(queryList, dateRange):
     buzzInfo = []
     listOfPosts = []
     for query in queryList:
-        searchword = query[5] #Query located Column number
+        searchword = query[1] #Query located Column number    
         print (searchword)
         for date in dateRange:
             searchUrl = urlGenerator(searchword, date[0], date[1], '')
+            print(searchUrl)
             soup = pageSourceRetriever(driver, searchUrl) 
             numOfPosts, maxNum = maxNumberFinder(soup)
             
@@ -169,13 +171,13 @@ def blogContentsCrawler(urlList, pickleName):
     
 def main():
 
-    queryList = excel.excelReader('ramen.xlsx')
-    dateRange = dateRangeGenerator('20030704','20160704')
-     
+    queryList = excel.excelReader('test.xlsx')
+    dateRange = dateRangeGenerator('20160504','20160704')
+    print(dateRange)
     buzzInfo, listOfPosts = urlRetriever(queryList, dateRange)
      
-    csv.csvWriter(listOfPosts, 'starbucks_url')
-    csv.csvWriter(buzzInfo, 'starbucks_buzzinfo')
+    csv.csvWriter(listOfPosts, 'test_url')
+    csv.csvWriter(buzzInfo, 'test_buzzinfo')
      
     # if we have the url file ready, comment out the lines above 
     # and run the 3 lines only below this comment
@@ -183,9 +185,8 @@ def main():
 
 #     listOfPosts = excel.excelReader('ramenList.xlsx')   
         
-    blogContents = blogContentsCrawler(listOfPosts, 'ramen')
-    csv.csvWriter(blogContents, 'ramenBlog')
+    blogContents = blogContentsCrawler(listOfPosts, 'test')
+    csv.csvWriter(blogContents, 'testBlog')
      
 if __name__ == "__main__":
     main()
-    
