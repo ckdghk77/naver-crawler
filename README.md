@@ -1,6 +1,6 @@
 # web-crawling-naver
 
-**web-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is a Korean search engine, using [selenium](http://selenium-python.readthedocs.io/).
+**web-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is a Korean search engine, using [selenium](http://selenium-python.readthedocs.io/). The list of sites that 
 
 ```
 install selenium
