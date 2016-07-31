@@ -33,16 +33,12 @@ pip install selenium
   * Number of posts : It has the number of the related posts created of a query.
 ```
 "박근혜","박근혜 레임덕","20160504",201
-"박근혜","박근혜 레임덕","20160601",153
+"박근혜","박근혜 레임덕","20160601",247
 "이명박","이명박 4대강","20160504",265
-"이명박","이명박 4대강","20160601",448
+"이명박","이명박 4대강","20160601",274
 ```
   * Blog posts : It contains actual text of blog post.
 ```
 "박근혜","박근혜 레임덕","2016.07.20.","20160504","http://m.blog.naver.com/hosabi55/220767101946","박근혜 정부 레임덕 가속화시키는...
 "박근혜","박근혜 레임덕","2016.07.14.","20160504","http://m.blog.naver.com/ertt2002/220761580768","'레임덕 박근혜, '정권 안보' 목적 사드 배치'...
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> branch 'master' of https://github.com/TY-Choi/web-crawling-naver
