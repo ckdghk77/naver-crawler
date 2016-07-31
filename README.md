@@ -16,7 +16,7 @@
 ```
 pip install selenium
 ```
->
+
 ## Usage
 #### 1. Naver Blog
-If you have a list of queries that you want to retreive the related blog posts, run **naver_blog_crawler.py**.
+If you have a list of queries and wish to retreive their related blog posts, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things on a particular period of time.
