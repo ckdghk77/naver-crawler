@@ -4,6 +4,10 @@
 
 1. [Naver Blog](http://section.blog.naver.com/)
 2. [Naver Cafe](http://section.cafe.naver.com/)
+3. [Naver News](http://news.naver.com/)
+4. [Naver Webtoon](http://comic.naver.com/index.nhn)
+5. [Naver People Search](http://people.search.naver.com/)
+6. [Naver Movie](http://movie.naver.com/)
 
 ```
 install selenium
