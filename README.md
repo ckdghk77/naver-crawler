@@ -1,6 +1,6 @@
 # web-crawling-naver
 
-**web-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is the biggest Korean search engine, using [selenium](http://selenium-python.readthedocs.io/). The list of sites that **web-crawling-naver** can archive is as follows:
+  **web-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is the biggest Korean search engine, using [selenium](http://selenium-python.readthedocs.io/). The list of sites that **web-crawling-naver** can archive is as follows:
 
 1. [Naver Blog](http://section.blog.naver.com/)
 2. [Naver Cafe](http://section.cafe.naver.com/)
@@ -19,4 +19,9 @@ pip install selenium
 
 ## Usage
 #### 1. Naver Blog
-If you have a list of queries and wish to retreive their related blog posts, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things on a particular period of time.
+  If you have a list of queries and wish to retreive their related blog posts, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things on a particular period of time.
+
+**naver_blog_crawler.py** will generate 3 files.
+  1. Urls
+  2. Number of posts
+  3. Blog posts
