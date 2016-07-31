@@ -41,4 +41,8 @@ pip install selenium
 ```
 "박근혜","박근혜 레임덕","2016.07.20.","20160504","http://m.blog.naver.com/hosabi55/220767101946","박근혜 정부 레임덕 가속화시키는...
 "박근혜","박근혜 레임덕","2016.07.14.","20160504","http://m.blog.naver.com/ertt2002/220761580768","'레임덕 박근혜, '정권 안보' 목적 사드 배치'...
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> branch 'master' of https://github.com/TY-Choi/web-crawling-naver
