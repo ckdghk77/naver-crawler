@@ -55,7 +55,7 @@ pip install selenium
 "3인칭","682265"
 "MZ","675830"
 ```
-   * A list of current webtoons episodes with their thumbnails and urls.
+   * A list of current webtoons episodes with their thumbnails and episode information.
 ```
 "670140","203호 저승사자","28. 오른팔의 자격","28","20160710","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=28","http://thumb.comic.naver.net/webtoon/670140/28/inst_thumbnail_20160708144832.jpg"
 "670140","203호 저승사자","27. 분리수거는 정해진날에","27","20160703","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=27","http://thumb.comic.naver.net/webtoon/670140/27/inst_thumbnail_20160701120826.jpg"
