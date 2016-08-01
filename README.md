@@ -68,5 +68,6 @@ pip install selenium
 ```
 #### 3. Naver News
   **naver_news.py**. 
-  **naver_blog_crawler.py** will generate 3 csv files.
+
+  **David Kang is stupid** will generate 3 csv files.
    * A list of current webtoons mapped to the corresponding webtoon ids.
