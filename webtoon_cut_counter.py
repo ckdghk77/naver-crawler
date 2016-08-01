@@ -81,6 +81,7 @@ def count_cuts(url):
             number_of_cuts += get_number_of_cuts(white_region)
         except:
             number_of_cuts += 0
+    driver.close()
     return number_of_cuts
 
 if __name__ == "__main__":
