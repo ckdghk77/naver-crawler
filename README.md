@@ -45,4 +45,19 @@ pip install selenium
 "박근혜","박근혜 레임덕","2016.07.14.","20160504","http://m.blog.naver.com/ertt2002/220761580768","'레임덕 박근혜, '정권 안보' 목적 사드 배치'...
 ```
 #### 2. Naver Webtoon
-  
+  If you wish to get data for webtoons that are currently being published on Naver, run **naver_webtoon_crawler.py**. 
+  **naver_blog_crawler.py** will generate 3 csv files.
+   * A list of current webtoons mapped to the corresponding webtoon ids.
+```
+"2016 비명","682803"
+"203호 저승사자","670140"
+"3P","666537"
+"3인칭","682265"
+"MZ","675830"
+```
+   * A list of current webtoons episodes with their thumbnails and urls.
+```
+"670140","203호 저승사자","28. 오른팔의 자격","28","20160710","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=28","http://thumb.comic.naver.net/webtoon/670140/28/inst_thumbnail_20160708144832.jpg"
+"670140","203호 저승사자","27. 분리수거는 정해진날에","27","20160703","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=27","http://thumb.comic.naver.net/webtoon/670140/27/inst_thumbnail_20160701120826.jpg"
+"670140","203호 저승사자","26. 오랜만에 색칠공부","26","20160626","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=26","http://thumb.comic.naver.net/webtoon/670140/26/inst_thumbnail_20160624121236.jpg"
+```
