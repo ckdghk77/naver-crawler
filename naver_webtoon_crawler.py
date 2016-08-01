@@ -183,7 +183,7 @@ def getNewThumbnailEpisodeUrl(webToonList, urlDataBase):
                         episodeNmeFinder2 = thumbnailLink.find('/inst_thumbnail')
                         episodeLinkNumber = thumbnailLink[episodeNumFinder1:episodeNmeFinder2]
                         url = urlBuilder(webToonList[name], episodeLinkNumber)
-                        cutCounts = cut_count.count_cuts(url.replace("http://","http://m."))
+                        cutCounts = cut_count.count_cuts(url.replace("http://","http://m."),driver)
                         listToAdd = [webToonList[name],name,item['title'],episodeLinkNumber,dates[numCount], cutCounts,url,thumbnailLink]
                         if listToAdd not in urlDataBase:
                             print(listToAdd)

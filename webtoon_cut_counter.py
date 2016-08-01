@@ -60,8 +60,7 @@ def get_number_of_cuts(white_region):
             refined_white_region.append(white_region[i+1])
     return int(len(refined_white_region)/2)+1
 
-def count_cuts(url):
-    driver = webdriver.Chrome()
+def count_cuts(url, driver):
     driver.get(url)
     image_blocks = driver.find_element_by_css_selector('#toonLayer').find_elements_by_tag_name('img')
     sample_url = image_blocks[0].get_attribute('src').replace('001.jpg','')
@@ -73,7 +72,6 @@ def count_cuts(url):
             number = number[1:]
         img_url = sample_url+number+'.jpg'
         urllib.request.urlretrieve(img_url, save_name)
-        time.sleep(1)
         save_name = 'cutCounter/'+str(i)+'.jpg'
         height_length, height_pix_list = image_loader(save_name)
         try :
