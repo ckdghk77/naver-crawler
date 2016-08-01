@@ -16,6 +16,8 @@
 ```
 pip install selenium
 ```
+### PhantomJS
+>PhantomJS (phantomjs.org) is a headless WebKit scriptable with JavaScript. The latest stable release is version 2.1.
 
 ## Usage
 #### 1. Naver Blog
@@ -29,7 +31,7 @@ pip install selenium
 "박근혜","박근혜 레임덕","2016.06.24.","20160601","http://blog.daum.net/oursociety/629"
 "박근혜","박근혜 레임덕","2016.06.11.","20160601","http://blog.naver.com/speconomy?Redirect=Log&logNo=220733414055"
 ```
-  * Number of posts : It has the number of the related posts created of a query.
+  * Number of posts : It has the number of the related blog posts of a query.
 ```
 "박근혜","박근혜 레임덕","20160504",201
 "박근혜","박근혜 레임덕","20160601",247
