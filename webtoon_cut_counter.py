@@ -60,10 +60,9 @@ def get_number_of_cuts(white_region):
             refined_white_region.append(white_region[i+1])
     return int(len(refined_white_region)/2)+1
 
-def main():
-#     image_list = excel.excelReader('name.xlsx')
+def count_cuts(url):
     driver = webdriver.Chrome()
-    driver.get('http://m.comic.naver.com/webtoon/detail.nhn?titleId=670140&no=28')
+    driver.get(url)
     image_blocks = driver.find_element_by_css_selector('#toonLayer').find_elements_by_tag_name('img')
     sample_url = image_blocks[0].get_attribute('src').replace('001.jpg','')
     number_of_cuts = 0
@@ -82,7 +81,7 @@ def main():
             number_of_cuts += get_number_of_cuts(white_region)
         except:
             number_of_cuts += 0
-    print(number_of_cuts)
+    return number_of_cuts
 
 if __name__ == "__main__":
     main()

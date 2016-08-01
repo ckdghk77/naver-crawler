@@ -11,6 +11,7 @@ import time
 import csvHandler as csv
 import pickleHandler as pickle
 import urllib.request
+import webtoon_cut_counter as cut_count
 
 def getListOfWebtoon(soup):
     listOfCartoon = {}
@@ -50,13 +51,6 @@ def getBestComments(newUrlList, bestCommentFile):
         dates = soup.find_all('div',{'class':'u_comment_info'})
         comments = soup.find_all('p',{'class':'u_comment_text u_comment_txt1'})
         likes = soup.find_all('div',{'class':'u_comment_recomm __comment_recomm'})
-        numbOfCuts = soup.find('div',{'class':'toon_view_lst'})
-        cutCounter = -1
-        if numbOfCuts:
-            numbOfCuts = numbOfCuts.find_all('li')
-            for item in numbOfCuts:
-                cutCounter += 1
-        n = 1
         for date in range(len(dates)):
             times = dates[date].text[dates[date].text.find(")")+2:dates[date].text.find(" |")]
             comment = comments[date].text.replace("BEST","") 
@@ -68,10 +62,9 @@ def getBestComments(newUrlList, bestCommentFile):
             idx = int(newUrlList[i][0])
             name = newUrlList[i][1]
             episode = newUrlList[i][2]
-            listToAdd = [idx, name, episode, episodeLinkNumber, updateDate, str(date+1), times, likeCounts[0], likeCounts[1], cutCounter ,comment]
+            listToAdd = [idx, name, episode, episodeLinkNumber, updateDate, str(date+1), times, likeCounts[0], likeCounts[1], comment]
             print(listToAdd)
             completeList.append(listToAdd)            
-            n+=1
     driver.close()
     csv.csvWriter(completeList, bestCommentFile)
     print('Done with Best Comments Downloader !!!!')
@@ -189,7 +182,8 @@ def getNewThumbnailEpisodeUrl(webToonList, urlDataBase):
                         episodeNmeFinder2 = thumbnailLink.find('/inst_thumbnail')
                         episodeLinkNumber = thumbnailLink[episodeNumFinder1:episodeNmeFinder2]
                         url = urlBuilder(webToonList[name], episodeLinkNumber)
-                        listToAdd = [webToonList[name],name,item['title'],episodeLinkNumber,dates[numCount],url,thumbnailLink]
+                        cutCounts = cut_count.count_cuts(url.replace("http://","http://m."))
+                        listToAdd = [webToonList[name],name,item['title'],episodeLinkNumber,dates[numCount], cutCounts,url,thumbnailLink]
                         if listToAdd not in urlDataBase:
                             print(listToAdd)
                             newList.append(listToAdd)
