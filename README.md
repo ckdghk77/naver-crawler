@@ -54,7 +54,7 @@ pip install selenium
 "3인칭","682265"
 "MZ","675830"
 ```
-   * A list of current webtoons episodes with their thumbnail urls and episode information.
+   * A list of current webtoons episodes with their thumbnail urls and episode information including the nubmer of cuts.
 ```
 "670140","203호 저승사자","28. 오른팔의 자격","28","20160710","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=28","http://thumb.comic.naver.net/webtoon/670140/28/inst_thumbnail_20160708144832.jpg"
 "670140","203호 저승사자","27. 분리수거는 정해진날에","27","20160703","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=27","http://thumb.comic.naver.net/webtoon/670140/27/inst_thumbnail_20160701120826.jpg"
@@ -62,7 +62,7 @@ pip install selenium
 ```
    * A list of highly rated comments that are submitted / evaluated by users.
 ```
-169080,"Penguin loves Mev","623화 새들의 집","628","20160728","1","2016-07-28 23:15",2668,24,7,"이 에피소드를 본 메브 반응이 궁금하네요ㅎㅎ "
-169080,"Penguin loves Mev","623화 새들의 집","628","20160728","2","2016-07-28 23:17",1782,17,7,"메브 이거보고 많이 시무룩하실것같애요ㅜㅜ 그와중에 두분다 너무 어린아이같아서 귀여워요♥"
-169080,"Penguin loves Mev","623화 새들의 집","628","20160728","3","2016-07-28 23:21",1352,19,7,"ㅋㅋㅋㅋㅋ 메브님 기분 좋으라고 새가 된  펭귄님 ㅋㅋㅋㅋㅋㅋ 사실 펭귄도 원래 조류였죠? 서로를 생각하는 모습이 넘 예쁘신 커플 같아요."
+169080,"Penguin loves Mev","623화 새들의 집","628","20160728","1","2016-07-28 23:15",2668,24,"이 에피소드를 본 메브 반응이 궁금하네요ㅎㅎ "
+169080,"Penguin loves Mev","623화 새들의 집","628","20160728","2","2016-07-28 23:17",1782,17,"메브 이거보고 많이 시무룩하실것같애요ㅜㅜ 그와중에 두분다 너무 어린아이같아서 귀여워요♥"
+169080,"Penguin loves Mev","623화 새들의 집","628","20160728","3","2016-07-28 23:21",1352,19,"ㅋㅋㅋㅋㅋ 메브님 기분 좋으라고 새가 된  펭귄님 ㅋㅋㅋㅋㅋㅋ 사실 펭귄도 원래 조류였죠? 서로를 생각하는 모습이 넘 예쁘신 커플 같아요."
 ```
