@@ -67,7 +67,5 @@ pip install selenium
 169080,"Penguin loves Mev","623화 새들의 집","628","20160728","3","2016-07-28 23:21",1352,19,"ㅋㅋㅋㅋㅋ 메브님 기분 좋으라고 새가 된  펭귄님 ㅋㅋㅋㅋㅋㅋ 사실 펭귄도 원래 조류였죠? 서로를 생각하는 모습이 넘 예쁘신 커플 같아요."
 ```
 #### 3. Naver News
-  **naver_news.py**. 
-
-  **David Kang is stupid** will generate 3 csv files.
+  **naver_news.py** will generate 3 csv files.
    * A list of current webtoons mapped to the corresponding webtoon ids.
