@@ -67,6 +67,7 @@ def count_cuts(url, driver):
     number_of_cuts = 0
     for i in range(1,len(image_blocks)-1):
         save_name = 'cutCounter/'+str(i)+'.jpg'
+        print(save_name)
         number = '00' + str(i)
         if len(number) > 3:
             number = number[1:]
@@ -76,12 +77,29 @@ def count_cuts(url, driver):
         height_length, height_pix_list = image_loader(save_name)
         try :
             white_region = define_non_white_region(height_length, height_pix_list)
+            crop_image(white_region, save_name)
             number_of_cuts += get_number_of_cuts(white_region)
         except:
             number_of_cuts += 0
     driver.close()
     return number_of_cuts
 
+def crop_image(white_region, save_name):
+    im2 = Image.open(save_name)
+    pix = im2.load()       
+    width_length2, height_length2 = im2.size
+    for i in range(1,len(white_region),2):
+        if white_region[i+1] - white_region[i] > 30:
+            im2.crop((0,white_region[i],width_length2,white_region[i+1])).save('splitted_images/'+str(i)+'.jpg')
+            print('splitted_images/'+str(i)+'.jpg')
+            time.sleep(1)
+        
+    
+def main():
+    driver = webdriver.Chrome()
+    cut_counts = count_cuts('http://m.comic.naver.com/webtoon/detail.nhn?titleId=20853&no=1052&weekday=tue', driver)
+    print(cut_counts)
+    driver.close()
 if __name__ == "__main__":
     main()
     
