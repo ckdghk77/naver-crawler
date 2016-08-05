@@ -10,9 +10,9 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
 import csvHandler as csv
-import pickleHandler as pickle
 import urllib.request
 import webtoon_cut_counter as cut_count
+import webtoon_genre
 
 def getListOfWebtoon(soup):
     listOfCartoon = {}
@@ -38,8 +38,6 @@ def getBestComments(newUrlList, bestCommentFile):
     driver = initializeWebdriver()
     
     completeList = []
-    pickle.pickleSaver(completeList, 'webtoonBestComment.pkl')
-    completeList = pickle.pickleLoader('webtoonBestComment.pkl')
         
     for i in range(len(newUrlList)):
         print('-------------------------------------------------------------------------------')
@@ -138,6 +136,7 @@ def updateWebToonList(webToonTitleFile):
     if numberOfChanges == 0 :
         print("No Webtoon List Updates Required")
     else:
+        webtoon_genre.execute()
         print("Webtoon List Has Been Updated. Automatically overwrites webtoonTitle_current.csv.")
         if len(deletedList) == 0:
             deletedList.append("NONE")
@@ -160,7 +159,8 @@ def getNewThumbnailEpisodeUrl(webToonList, urlDataBase):
     driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs')
 #     driver = webdriver.PhantomJS(executable_path='/Users/Kuk/celebtide/bin/phantomjs')
 #     driver = webdriver.PhantomJS(executable_path='/Users/Mycelebscom/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS()
+    driver2 = webdriver.Chrome()
+    
     newList = []
     for name in sorted(webToonList.keys()):
         print('-----------------------------------')
@@ -169,10 +169,12 @@ def getNewThumbnailEpisodeUrl(webToonList, urlDataBase):
         url = urlBuilder(webToonList[name], '')
         nextButtonExists = True
         while nextButtonExists:
+            print(url)
             soup = pageSourceRetriever(driver, url)
             numCount = 0
             dates = getDates(soup)
             lastEpisodeNum = soup.find('tbody').find_all('td')
+            recom_num = soup.find('em',{'class':'u_cnt'}).text
             duplicates_appeared = False            
             for each in lastEpisodeNum:
                 listOfImages = each.find_all('img')
@@ -183,8 +185,8 @@ def getNewThumbnailEpisodeUrl(webToonList, urlDataBase):
                         episodeNmeFinder2 = thumbnailLink.find('/inst_thumbnail')
                         episodeLinkNumber = thumbnailLink[episodeNumFinder1:episodeNmeFinder2]
                         url = urlBuilder(webToonList[name], episodeLinkNumber)
-                        cutCounts = cut_count.count_cuts(url.replace("http://","http://m."),driver)
-                        listToAdd = [webToonList[name],name,item['title'],episodeLinkNumber,dates[numCount], cutCounts,url,thumbnailLink]
+#                         cutCounts = cut_count.count_cuts(url.replace("http://","http://m."),driver2, webToonList[name], episodeLinkNumber)
+                        listToAdd = [webToonList[name], recom_num,name,item['title'],episodeLinkNumber,dates[numCount],url,thumbnailLink]
                         if listToAdd not in urlDataBase:
                             print(listToAdd)
                             newList.append(listToAdd)

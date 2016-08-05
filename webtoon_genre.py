@@ -117,27 +117,10 @@ def webtoon_sorted_by_genre(driver, genre_list ,day_list):
     return big_list
 
 
-def main():
-    webtoon_database = csv.csvReader_toList('webtoon_genre_sorted.csv')
-    webtoon_id_datbase = [ x[0] for x in webtoon_database]
+def execute():
     driver = webdriver.Chrome()
     day_list = webtoon_day_mapping(driver)
     genre_list = webtoon_genre_mapping(driver)
     big_list = webtoon_sorted_by_genre(driver, genre_list, day_list)
-    counter = 0
-    for item in big_list:
-        if item in webtoon_database:
-            pass
-        elif item[0] in webtoon_id_datbase:
-            print(item,' has been modified')
-            counter += 1
-        else:
-            print(item, ' has been added')
-            counter += 1
-    if counter == 0:
-        print("no updates has been made.")
     driver.close()
     csv.csvWriter(big_list, 'webtoon_genre_sorted.csv')    
-     
-if __name__ == "__main__":
-    main()

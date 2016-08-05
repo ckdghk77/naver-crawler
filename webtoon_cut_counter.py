@@ -15,7 +15,8 @@ def image_loader(name):
     width_length, height_length = im.size
     height_pix_list = []
     for height in range(height_length):
-        width_pix_list = []
+        width_pix_list1 = []
+        width_pix_list2 = []
         contains_non_white = False
         for width in range(width_length):
             try:
@@ -23,13 +24,18 @@ def image_loader(name):
             except:
                 r,g,b,a = pix[width,height]
             if r > 240 and g > 240 and b >240:
-                width_pix_list.append(width)
+                width_pix_list1.append(width)
+            elif r < 10 and g < 10 and b < 10:
+                width_pix_list2.append(width)
             else:
                 contains_non_white = True
             if contains_non_white:
                 break
-            if len(width_pix_list) == width_length:
+            if len(width_pix_list1) == width_length:
                 height_pix_list.append(height)
+            elif len(width_pix_list2) == width_length:
+                height_pix_list.append(height)
+                
     return height_length, height_pix_list
 
 def define_non_white_region(height_length, height_pix_list):
@@ -60,14 +66,13 @@ def get_number_of_cuts(white_region):
             refined_white_region.append(white_region[i+1])
     return int(len(refined_white_region)/2)+1
 
-def count_cuts(url, driver):
+def count_cuts(url, driver, webtoon_id, episodeLinkNumber):
     driver.get(url)
     image_blocks = driver.find_element_by_css_selector('#toonLayer').find_elements_by_tag_name('img')
     sample_url = image_blocks[0].get_attribute('src').replace('001.jpg','')
     number_of_cuts = 0
     for i in range(1,len(image_blocks)-1):
         save_name = 'cutCounter/'+str(i)+'.jpg'
-        print(save_name)
         number = '00' + str(i)
         if len(number) > 3:
             number = number[1:]
@@ -77,24 +82,21 @@ def count_cuts(url, driver):
         height_length, height_pix_list = image_loader(save_name)
         try :
             white_region = define_non_white_region(height_length, height_pix_list)
-            crop_image(white_region, save_name)
             number_of_cuts += get_number_of_cuts(white_region)
+            crop_image(white_region, save_name, webtoon_id, episodeLinkNumber)
         except:
             number_of_cuts += 0
-    driver.close()
     return number_of_cuts
 
-def crop_image(white_region, save_name):
+def crop_image(white_region, save_name,webtoon_id, episodeLinkNumber):
     im2 = Image.open(save_name)
     pix = im2.load()       
     width_length2, height_length2 = im2.size
     for i in range(1,len(white_region),2):
         if white_region[i+1] - white_region[i] > 30:
-            im2.crop((0,white_region[i],width_length2,white_region[i+1])).save('splitted_images/'+str(i)+'.jpg')
-            print('splitted_images/'+str(i)+'.jpg')
-            time.sleep(1)
+            im2.crop((0,white_region[i],width_length2,white_region[i+1])).save('splitted_images/'+webtoon_id+str(episodeLinkNumber)+str(i)+'.jpg')
+            time.sleep(0.5)
         
-    
 def main():
     driver = webdriver.Chrome()
     cut_counts = count_cuts('http://m.comic.naver.com/webtoon/detail.nhn?titleId=20853&no=1052&weekday=tue', driver)
