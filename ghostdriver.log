@@ -1,35 +1,5 @@
-[INFO  - 2016-07-31T10:53:21.165Z] GhostDriver - Main - running on port 55376
-[INFO  - 2016-07-31T10:53:21.554Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2016-07-31T10:53:21.555Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - page.customHeaders:  - {}
-[INFO  - 2016-07-31T10:53:21.555Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-10.11 (El Capitan)-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2016-07-31T10:53:21.555Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: ff47d2e0-570c-11e6-99d7-8f4e63d7edd1
-[ERROR - 2016-07-31T10:53:46.990Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - page.onError - msg: getPresentingPlayerType@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:7240:109
-Tr@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:2141:78
-u8@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:4210:81
-Y8@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:4296:299
-create@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:7230:552
-https://s.ytimg.com/yts/jsbin/www-embed-player-vfl_5XjZ-/www-embed-player.js:459:276
-[native code]
-h@https://s.ytimg.com/yts/jsbin/www-embed-player-vfl_5XjZ-/www-embed-player.js:126:203
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-07-31T10:53:46.990Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - page.onError - stack:
-  (anonymous function) (https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:3949)
-  (anonymous function) (:0)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-07-31T10:53:47.684Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - page.onError - msg: getPresentingPlayerType@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:7240:109
-Tr@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:2141:78
-u8@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:4210:81
-Y8@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:4296:299
-create@https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:7230:552
-https://s.ytimg.com/yts/jsbin/www-embed-player-vfl_5XjZ-/www-embed-player.js:459:276
-[native code]
-h@https://s.ytimg.com/yts/jsbin/www-embed-player-vfl_5XjZ-/www-embed-player.js:126:203
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2016-07-31T10:53:47.684Z] Session [ff47d2e0-570c-11e6-99d7-8f4e63d7edd1] - page.onError - stack:
-  (anonymous function) (https://s.ytimg.com/yts/jsbin/player-en_US-vfld7sVQ3/base.js:3949)
-  (anonymous function) (:0)
-
-  phantomjs://platform/console++.js:263 in error
+[INFO  - 2017-01-03T18:57:49.293Z] GhostDriver - Main - running on port 51914
+[INFO  - 2017-01-03T18:57:49.446Z] Session [85892620-d1e6-11e6-9409-71ee6d6c081e] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-01-03T18:57:49.446Z] Session [85892620-d1e6-11e6-9409-71ee6d6c081e] - page.customHeaders:  - {}
+[INFO  - 2017-01-03T18:57:49.446Z] Session [85892620-d1e6-11e6-9409-71ee6d6c081e] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-01-03T18:57:49.446Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 85892620-d1e6-11e6-9409-71ee6d6c081e

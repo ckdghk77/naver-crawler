@@ -1,149 +1,222 @@
 # -*- coding: utf-8 -*-
-#
-'''
-Created on Jun 13, 2016
 
+"""
+Created on Jun 13, 2016
 @author: TYchoi
-'''
+
+naver_blog_crawler.py allows you to retrieve related blog posts of your interest.
+You can feed a list of queries and different date ranges, 
+so you can see what people are saying about certain things during a particular period of time.
+"""
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from urllib import parse
 import excelHandler as excel
-import pickleHandler as pickle
 import csvHandler as csv
     
-def maxNumberFinder(soup):
-    numOfPosts = soup.find('span',{'class':'title_num'})
+def max_num_finder(soup):
+    """Calculate the number of result pages.
+    If there are no results regarding a given query, it simply returns zero.
 
-    if numOfPosts:
-        numOfPosts = int(numOfPosts.text.split(' ')[-1].replace(',','')[:-1])   
-        if numOfPosts > 50:
-            maxnum = 5
+    Args:
+        soup: BeautifulSoup page source file 
+    Returns:
+        num_of_posts : the total number of posts created
+        maxnum : the last page number of search results
+    """
+    num_of_posts = soup.find('span',{'class':'title_num'})
+
+    if num_of_posts:
+        num_of_posts = int(num_of_posts.text.split(' ')[-1].replace(',','')[:-1])
+        
+        # Naver show maximum of 1000 result pages
+        # if there are more than 1000 result pages.
+        if num_of_posts > 991:
+            maxnum = 99
         else:
-            if numOfPosts%10 == 0:
-                maxnum = int(numOfPosts/10)
+            if num_of_posts%10 == 0:
+                maxnum = int(num_of_posts/10)
             else:
-                maxnum = int(numOfPosts/10)+1
+                maxnum = int(num_of_posts/10)+1
     else:
-        numOfPosts = 0
+        num_of_posts = 0
         maxnum = 0   
-    return numOfPosts, maxnum
+    return num_of_posts, maxnum
 
-def urlGenerator(searchQuery, fromDate, toDate, pageNum):
-    query=searchQuery.replace(searchQuery,parse.quote(searchQuery))
-    searchUrl='https://search.naver.com/search.naver?where=post&query='+query+'&ie=utf8&st=sim&sm=tab_opt&date_from='+fromDate+'&date_to='+toDate+'&date_option=8&srchby=all&dup_remove=1&post_blogurl=&post_blogurl_without=&nso=so%3Ar%2Ca%3Aall%2Cp%3Afrom'+fromDate+'to'+toDate+'&mson=0'
-    if pageNum:
-        searchUrl = searchUrl + '&start=' + pageNum
-    return searchUrl
+def url_generator(search_query, from_date, to_date, page_num):
+    """Generates url in an appropriate format.
 
-def dateRangeGenerator(startingDate, toDate):
-    startingYear = int(startingDate[:4])
-    toYear = int(toDate[:4])
+    Args:
+        search_query: search word
+        from_date : starting date of the range
+        to_date : ending date of the range
+        page_num : current page number within the result pages
+    Returns:
+        search_url : url that we need to retrieve data from
+    Raises:
+        AttributeError : a query must be String
+    """
+    query=search_query.replace(search_query,parse.quote(search_query))
+    search_url='https://search.naver.com/search.naver?where=post&query='+query+'&ie=utf8&st=sim&sm=tab_opt&date_from='+from_date+'&date_to='+to_date+'&date_option=8&srchby=all&dup_remove=1&post_blogurl=&post_blogurl_without=&nso=so%3Ar%2Ca%3Aall%2Cp%3Afrom'+from_date+'to'+to_date+'&mson=0'
     
-    dateList = ['0301','0601','0901','1201']
-    fromtoDateList = {'0301':'0531','0601':'0831','0901':'1130','1201':'0228'}
+    if page_num:
+        search_url = search_url + '&start=' + page_num
+    return search_url
+
+def date_range_generator(starting_date, to_date):
+    """Divides the date range into 3-month-periods
+    Naver only displays 1000 results per search.
+    For a longer period of time, we may lose a large amount of data.
+
+    Args:
+        starting_date : starting date of the range
+        to_date : ending date of the range 
+    Returns:
+        three_months_periods : list of date ranges broken into 3-month-periods
+    """
+    
+    if starting_date > to_date:
+        print ("Inappropriate date range : ", "~".join([starting_date, to_date]))
+        exit()
+        
+    
+    starting_year = int(starting_date[:4])
+    to_year = int(to_date[:4])
+
+    
+    date_list = ['0301','0601','0901','1201']
+    from_to_date_list = {'0301':'0531','0601':'0831','0901':'1130','1201':'0228'}
     
     start = []
     end = []
-    start.append(startingDate)
-    for i in range(toYear-startingYear+1):
-        year = startingYear+i
-        for date in dateList:
-            currentDate = int(str(year)+date)
-            if int(startingDate) < currentDate and int(toDate) > currentDate:
-                start.append(currentDate)
+    start.append(starting_date)
+    for i in range(to_year-starting_year+1):
+        year = starting_year+i
+        for date in date_list:
+            current_date = int(str(year)+date)
+            if int(starting_date) < current_date and int(to_date) > current_date:
+                start.append(current_date)
     
-    for i in range(toYear-startingYear+1):
-        year = startingYear+i
-        for date in dateList:
+    for i in range(to_year-starting_year+1):
+        year = starting_year+i
+        for date in date_list:
             if date == '1201':
-                currentDate = int(str(year+1)+fromtoDateList[date])
+                current_date = int(str(year+1)+from_to_date_list[date])
             else:
-                currentDate = int(str(year)+fromtoDateList[date])
-            if int(startingDate) < currentDate and int(toDate) > currentDate:
-                end.append(currentDate)
-    end.append(toDate)
+                current_date = int(str(year)+from_to_date_list[date])
+            if int(starting_date) < current_date and int(to_date) > current_date:
+                end.append(current_date)
+    end.append(to_date)
     
-    listToReturn = []
+    three_months_periods = []
     for i in range(len(start)):
-        listToReturn.append([str(start[i]),str(end[i])])
+        three_months_periods.append([str(start[i]),str(end[i])])
     
-    return listToReturn
+    return three_months_periods
 
-def pageSourceRetriever(driver, searchUrl):
-    driver.get(searchUrl)
+def page_source_retriever(driver, search_url):
+    """Creates page source of a webpage as a BeautifulSoup file
+
+    Args:
+        driver : currently active webdriver
+        search_url : a webpage we want to load 
+    Returns:
+        soup: BeautifulSoup page source file 
+    """
+    driver.get(search_url)
     r=driver.page_source
     soup=BeautifulSoup(r, "lxml") 
     return soup
 
-def getHrefs(soup):
+def get_hrefs(soup):
+    """Creates a list of urls to the blog posts on a search page 
+
+    Args:
+        soup: BeautifulSoup page source file 
+    Returns:
+        href: a list of hrefs to the blog posts on web 
+    """
     for item in soup.find_all('a', {'class':'sh_blog_title _sp_each_url _sp_each_title'}):
         href=item['href']
     return href
 
-def getDate(soup):
+def get_date(soup):
+    """Creates a list of created dates of the blog posts on a search page 
+
+    Args:
+        soup: BeautifulSoup page source file 
+    Returns:
+        date: a list of created dates of the blog posts on a search page 
+    """
     for item in soup.find_all('dd',{'class':'txt_inline'}):
         date = item.text.split(" ")[0]
     return date
 
-def urlRetriever(queryList, dateRange):
-    #Choose One
-    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Kuk/celebtide/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Mycelebscom/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS()
+def build_blog_list(query_list, date_range):
+    """Creates a full list of blog posts 
 
-    buzzInfo = []
-    listOfPosts = []
-    for query in queryList:
-        searchword = query[1] #Query located Column number    
+    Args:
+        query_list : list of queries
+        date_rage : a user set date range 
+    Returns:
+        buzz_info : the total number of posts created of queries 
+        list_of_poists : a list of all posts that contains queries, dates created, date ranges and urls of each blog post
+    """
+    
+    driver = webdriver.Chrome('/Users/taeyoungchoi/Documents/workspace/test/chromedriver')
+
+    buzz_info = []
+    list_of_posts = []
+    for query in query_list:
+        searchword = query[0]     
         print (searchword)
-        for date in dateRange:
-            searchUrl = urlGenerator(searchword, date[0], date[1], '')
-            print(searchUrl)
-            soup = pageSourceRetriever(driver, searchUrl) 
-            numOfPosts, maxNum = maxNumberFinder(soup)
+        for date in date_range:
+            search_url = url_generator(searchword, date[0], date[1], '')
+            print(search_url)
+            soup = page_source_retriever(driver, search_url) 
+            num_of_posts, max_num = max_num_finder(soup)
             
-            for i in range(maxNum):
-                num = str(10*i+1)
-                searchUrlByPage = urlGenerator(searchword, date[0], date[1], num)
-                soup = pageSourceRetriever(driver, searchUrlByPage)
+            for i in range(max_num):
+                current_page = str(10*i+1)
+                search_url_by_page = url_generator(searchword, date[0], date[1], current_page)
+                soup = page_source_retriever(driver, search_url_by_page)
                 
                 sections = soup.find_all('li', {'class':'sh_blog_top'})
                 for section in sections:
-                    href = getHrefs(section)
-                    datePosted = getDate(section)
-                    listOfPosts.append([query[0],query[1], datePosted, date[0] ,href]) #1占쎈였占쎈퓠 idx, 2占쎈였占쎈퓠 占쎌뵠�뵳占�
-            buzzInfo.append([query[0],query[1],date[0], numOfPosts]) #1占쎈였占쎈퓠 idx, 2占쎈였占쎈퓠 占쎌뵠�뵳占�
+                    href = get_hrefs(section)
+                    date_posted = get_date(section)
+                    list_of_posts.append([searchword, date_posted, date[0],date[1],href]) 
+            buzz_info.append([searchword,date[0],date[1], num_of_posts]) 
 
     driver.quit()
     
-    return buzzInfo, listOfPosts
+    return buzz_info, list_of_posts
 
-def blogContentsCrawler(urlList, pickleName):
-    #Choose One
-    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Kuk/celebtide/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Mycelebscom/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS()
+def blog_contents_crawler(list_of_posts):
+    """Appends actual text of each blog post to the list of posts by visiting each page
+
+    Args:
+        list_of_poists : a list of all posts that contains queries, dates created, date ranges and urls of each blog post
+    Returns:
+        list_of_poists : updated list of all posts with text data
+    """
+
+    driver = webdriver.Chrome('/Users/taeyoungchoi/Documents/workspace/test/chromedriver')
     
     driver.set_page_load_timeout(10)
-    pickle.pickleSaver(urlList, pickleName)
-    blogList = pickle.pickleLoader(pickleName)
-
-    for i in range(len(blogList)): #1/n 筌띾슦寃� 占쎌삂占쎈씜占쎈뻻 占쎈링占쎌벥 占쎄땀占쎌뒠 癰귨옙野껋�鍮먲옙鍮욑옙釉�. 占쎌굙) 1/3占쎈뎃 占쎌삂占쎈씜占쎈뻻 int(len(blogList)/3)/ int(len(blogList)/3),int(len(blogList)*2/3) / int(len(blogList)*2/3),len(blogList)   
-        print(i+1,"out of",len(blogList))
-        if 'naver' in blogList[i][4]:
-            url = blogList[i][4]
+    for i in range(len(list_of_posts)):    
+        print(i+1,"out of",len(list_of_posts))
+        if 'naver' in list_of_posts[i][4]:
+            url = list_of_posts[i][4]
             url = url.replace('?Redirect=Log&logNo=', '/')
             url = url.replace('http://','http://m.')
             try:
-                soup=pageSourceRetriever(driver, url)
+                soup=page_source_retriever(driver, url)
                 contents = ''
-                contentBox = soup.find_all('div',{'class':'post_ct  '})
-                if contentBox:
-                    for j in contentBox:
+                content_box = soup.find_all('div',['post_ct ','se_textView'])
+                if content_box:
+                    for j in content_box:
                         lines = j.find_all('div')
                         lines = lines + j.find_all('p')
                         lines = lines + j.find_all('span')
@@ -152,41 +225,36 @@ def blogContentsCrawler(urlList, pickleName):
                                 if m.text:
                                     if (' '.join(m.text.split())) not in contents:
                                         contents = contents + ' ' + ' '.join(m.text.split())
-                        print(contents[1:50])  
+                    print(contents[1:50])  
             except:
                 print("Loading Failed! :  "  + url)
             
             if contents:
-                blogList[i].append(contents[1:])
-                blogList[i][4] = url
-                pickle.pickleSaver(blogList, pickleName)
-                blogList = pickle.pickleLoader(pickleName)
+                list_of_posts[i].append(contents[1:])
+                list_of_posts[i][4] = url
             else:
                 print("No Content Error! :  " + url)
         else:
-            print("Not a Naver blog ! :  " + blogList[i][4])
+            print("Not a Naver blog ! :  " + list_of_posts[i][4])
     
     driver.quit()
-    return blogList
+    return list_of_posts
     
 def main():
+    """Read an excel file that contains a list of queries then outputs two csv files with gathered information
 
-    queryList = excel.excelReader('test.xlsx')
-    dateRange = dateRangeGenerator('20160504','20160704')
-    print(dateRange)
-    buzzInfo, listOfPosts = urlRetriever(queryList, dateRange)
-     
-    csv.csvWriter(listOfPosts, 'test_url')
-    csv.csvWriter(buzzInfo, 'test_buzzinfo')
-     
-    # if we have the url file ready, comment out the lines above 
-    # and run the 3 lines only below this comment
-    # Make sure to run the line below that's been commented out.
+    Raises : 
+        FileNotFoundError: an excel file that contains a list of queries cannot be found
+    """
 
-#     listOfPosts = excel.excelReader('ramenList.xlsx')   
+    query_list = excel.excelReader('test.xlsx')
+    date_range = date_range_generator('20170903','20160103')
+    
+    buzz_info, list_of_posts = build_blog_list(query_list, date_range)
+    csv.csvWriter(buzz_info, 'test_buzzinfo') 
         
-    blogContents = blogContentsCrawler(listOfPosts, 'test')
-    csv.csvWriter(blogContents, 'testBlog')
+    blog_contents = blog_contents_crawler(list_of_posts)
+    csv.csvWriter(blog_contents, 'testBlog')
      
 if __name__ == "__main__":
     main()
