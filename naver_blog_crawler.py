@@ -79,7 +79,6 @@ def date_range_generator(starting_date, to_date):
     if starting_date > to_date:
         print ("Inappropriate date range : ", "~".join([starting_date, to_date]))
         exit()
-        
     
     starting_year = int(starting_date[:4])
     to_year = int(to_date[:4])
@@ -162,9 +161,11 @@ def build_blog_list(query_list, date_range):
     Returns:
         buzz_info : the total number of posts created of queries 
         list_of_poists : a list of all posts that contains queries, dates created, date ranges and urls of each blog post
+    Raises:
+        selenium.common.exceptions.WebDriverException: webdriver cannot be found
     """
     
-    driver = webdriver.Chrome('/Users/taeyoungchoi/Documents/workspace/test/chromedriver')
+    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs2')
 
     buzz_info = []
     list_of_posts = []
@@ -195,14 +196,17 @@ def build_blog_list(query_list, date_range):
 
 def blog_contents_crawler(list_of_posts):
     """Appends actual text of each blog post to the list of posts by visiting each page
+    Visits Naver blogs ONLY.
 
     Args:
         list_of_poists : a list of all posts that contains queries, dates created, date ranges and urls of each blog post
     Returns:
         list_of_poists : updated list of all posts with text data
+    Raises:
+        selenium.common.exceptions.WebDriverException: webdriver cannot be found
     """
 
-    driver = webdriver.Chrome('/Users/taeyoungchoi/Documents/workspace/test/chromedriver')
+    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs2')
     
     driver.set_page_load_timeout(10)
     for i in range(len(list_of_posts)):    
@@ -246,15 +250,22 @@ def main():
     Raises : 
         FileNotFoundError: an excel file that contains a list of queries cannot be found
     """
+    
+    qury_list_file = ''
+    starting_date = ''
+    ending_date = ''
+    
+    buzz_output_file = ''
+    blog_text_output_file = ''
 
-    query_list = excel.excelReader('test.xlsx')
-    date_range = date_range_generator('20170903','20160103')
+    query_list = excel.excelReader(qury_list_file)
+    date_range = date_range_generator(starting_date, ending_date)
     
     buzz_info, list_of_posts = build_blog_list(query_list, date_range)
-    csv.csvWriter(buzz_info, 'test_buzzinfo') 
+    csv.csvWriter(buzz_info, buzz_output_file) 
         
     blog_contents = blog_contents_crawler(list_of_posts)
-    csv.csvWriter(blog_contents, 'testBlog')
+    csv.csvWriter(blog_contents, blog_text_output_file)
      
 if __name__ == "__main__":
     main()
