@@ -27,18 +27,20 @@ pip install selenium
 
 **naver_blog_crawler.py** will generate 2 csv files.  
 
-  * Number of posts : It has the number of the related blog posts of a query.
+  * Number of posts : It has the total number of the related blog posts of each query.
 ```
-"박근혜","박근혜 레임덕","20160504",201
-"박근혜","박근혜 레임덕","20160601",247
-"이명박","이명박 4대강","20160504",265
-"이명박","이명박 4대강","20160601",274
+"query","starting date","ending date","number of posts"
+"도널드 트럼프","20160103","20160103",12
+"힐러리 클린턴","20160103","20160103",9
 ```
   * Blog posts : It contains actual text of blog posts.
 ```
-"박근혜","박근혜 레임덕","2016.07.20.","20160504","http://m.blog.naver.com/hosabi55/220767101946","박근혜 정부 레임덕 가속화시키는...
-"박근혜","박근혜 레임덕","2016.07.14.","20160504","http://m.blog.naver.com/ertt2002/220761580768","'레임덕 박근혜, '정권 안보' 목적 사드 배치'...
+"query","date posted","url","text"
+"도널드 트럼프","2016.01.03.","http://m.blog.naver.com/didtalk/220586117162","안녕하세요~~ 새해 복 많이 받고 계시죠? 팍팍 받으시기 바랍니다. 위에 나온 두사람의.."
+"도널드 트럼프","2016.01.03.","http://m.blog.naver.com/alexj1005/220586546397","'트럼프 역겨워' 공중광고, 루비오 지지자가 만들어 (워싱턴=연합뉴스) 김세진 특파원 = ..."
+"힐러리 클린턴","2016.01.03.","http://m.blog.naver.com/y3171190y/220586608443","한 해가 가고 새해가 밝았다. 사실 인간이 달력을 만들어 가지고 그냥 카운트한 결과라고..."
 ```
+
 #### 2. Naver Webtoon
   If you wish to get data for webtoons that are currently being published on Naver, run **naver_webtoon_crawler.py**. 
   **naver_blog_crawler.py** will generate 3 csv files.
