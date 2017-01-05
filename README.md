@@ -24,8 +24,9 @@ pip install selenium
   If you have a list of queries and wish to retrieve related blog posts of the queries, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things during a particular period of time.
 
 ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_blog_crawler.png)
+
 **naver_blog_crawler.py** will generate 2 csv files.  
-```
+
   * Number of posts : It has the number of the related blog posts of a query.
 ```
 "박근혜","박근혜 레임덕","20160504",201
