@@ -251,12 +251,12 @@ def main():
         FileNotFoundError: an excel file that contains a list of queries cannot be found
     """
     
-    qury_list_file = 'test.xlsx'
-    starting_date = '20160103'
-    ending_date = '20160103'
+    qury_list_file = ''
+    starting_date = ''
+    ending_date = ''
     
-    buzz_output_file = 'buzz_test.csv'
-    blog_text_output_file = 'blog_test.csv'
+    buzz_output_file = ''
+    blog_text_output_file = ''
 
     query_list = excel.excelReader(qury_list_file)
     date_range = date_range_generator(starting_date, ending_date)
