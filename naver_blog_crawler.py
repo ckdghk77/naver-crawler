@@ -32,8 +32,8 @@ def max_num_finder(soup):
         
         # Naver show maximum of 1000 result pages
         # if there are more than 1000 result pages.
-        if num_of_posts > 991:
-            maxnum = 99
+        if num_of_posts > 20:
+            maxnum = 2
         else:
             if num_of_posts%10 == 0:
                 maxnum = int(num_of_posts/10)
@@ -165,7 +165,7 @@ def build_blog_list(query_list, date_range):
         selenium.common.exceptions.WebDriverException: webdriver cannot be found
     """
     
-    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs2')
+    driver = webdriver.PhantomJS(executable_path='/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs')
 
     buzz_info = []
     list_of_posts = []
@@ -187,7 +187,7 @@ def build_blog_list(query_list, date_range):
                 for section in sections:
                     href = get_hrefs(section)
                     date_posted = get_date(section)
-                    list_of_posts.append([searchword, date_posted, date[0],date[1],href]) 
+                    list_of_posts.append([searchword, date_posted,href]) 
             buzz_info.append([searchword,date[0],date[1], num_of_posts]) 
 
     driver.quit()
@@ -206,13 +206,13 @@ def blog_contents_crawler(list_of_posts):
         selenium.common.exceptions.WebDriverException: webdriver cannot be found
     """
 
-    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs2')
+    driver = webdriver.PhantomJS(executable_path='/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs')
     
     driver.set_page_load_timeout(10)
     for i in range(len(list_of_posts)):    
         print(i+1,"out of",len(list_of_posts))
-        if 'naver' in list_of_posts[i][4]:
-            url = list_of_posts[i][4]
+        if 'naver' in list_of_posts[i][2]:
+            url = list_of_posts[i][2]
             url = url.replace('?Redirect=Log&logNo=', '/')
             url = url.replace('http://','http://m.')
             try:
@@ -235,11 +235,11 @@ def blog_contents_crawler(list_of_posts):
             
             if contents:
                 list_of_posts[i].append(contents[1:])
-                list_of_posts[i][4] = url
+                list_of_posts[i][2] = url
             else:
                 print("No Content Error! :  " + url)
         else:
-            print("Not a Naver blog ! :  " + list_of_posts[i][4])
+            print("Not a Naver blog ! :  " + list_of_posts[i][2])
     
     driver.quit()
     return list_of_posts
@@ -251,12 +251,12 @@ def main():
         FileNotFoundError: an excel file that contains a list of queries cannot be found
     """
     
-    qury_list_file = ''
-    starting_date = ''
-    ending_date = ''
+    qury_list_file = 'test.xlsx'
+    starting_date = '20160103'
+    ending_date = '20160103'
     
-    buzz_output_file = ''
-    blog_text_output_file = ''
+    buzz_output_file = 'buzz_test.csv'
+    blog_text_output_file = 'blog_test.csv'
 
     query_list = excel.excelReader(qury_list_file)
     date_range = date_range_generator(starting_date, ending_date)
