@@ -23,13 +23,8 @@ pip install selenium
 #### 1. Naver Blog
   If you have a list of queries and wish to retrieve related blog posts of the queries, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things during a particular period of time.
 
-**naver_blog_crawler.py** will generate 3 csv files.  
-  * Urls : It cotains the list of urls to the related blog posts of a query.
-```
-"박근혜","박근혜 레임덕","2016.05.20.","20160504","http://enlucha.tistory.com/473"
-"박근혜","박근혜 레임덕","2016.05.23.","20160504","http://euihyone.blog.me/220717449442"
-"박근혜","박근혜 레임덕","2016.06.24.","20160601","http://blog.daum.net/oursociety/629"
-"박근혜","박근혜 레임덕","2016.06.11.","20160601","http://blog.naver.com/speconomy?Redirect=Log&logNo=220733414055"
+![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_blog_crawler.png)
+**naver_blog_crawler.py** will generate 2 csv files.  
 ```
   * Number of posts : It has the number of the related blog posts of a query.
 ```
