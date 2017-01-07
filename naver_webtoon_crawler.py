@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-#
-'''
+
+"""
 Created on Jun 13, 2016
 
 @author: TYchoi
-'''
+
+
+"""
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -12,70 +14,70 @@ import time
 import csvHandler as csv
 import urllib.request
 import webtoon_cut_counter as cut_count
-import webtoon_genre
+import webtoon_database
 
-def getListOfWebtoon(soup):
-    listOfCartoon = {}
+def get_list_of_webtoon(soup):
+    list_of_cartoon = {}
     titles = soup.find_all('a',{'class':'title'})
     for comment in titles:
         hyperLink = comment['href']
-        idFinderFront = hyperLink.find('titleId=')+8
-        idFinderEnd = hyperLink.find('&weekday')
-        webToonID = hyperLink[idFinderFront : idFinderEnd]
-        listOfCartoon[comment.text] = webToonID
-    return listOfCartoon
+        id_finder_front = hyperLink.find('titleId=')+8
+        id_finder_end = hyperLink.find('&weekday')
+        webtoon_id = hyperLink[id_finder_front : id_finder_end]
+        list_of_cartoon[comment.text] = webtoon_id
+    return list_of_cartoon
 
-def pageSourceRetriever(driver, searchUrl):
-    driver.get(searchUrl)
+def page_source_retriever(driver, search_url):
+    driver.get(search_url)
     # change time.sleep to be appropriate to your internet connection.
     time.sleep(1.5)
     r=driver.page_source
     soup=BeautifulSoup(r, "lxml") 
     return soup
 
-def getBestComments(newUrlList, bestCommentFile):
+def get_best_comments(new_url_list, best_comment_file):
     print('Best Comments Downloader Launching....................')
-    driver = initializeWebdriver()
+    driver = initialize_webdriver()
     
     completeList = []
         
-    for i in range(len(newUrlList)):
+    for i in range(len(new_url_list)):
         print('-------------------------------------------------------------------------------')
-        print(i+1,newUrlList[i][1],newUrlList[i][2])
-        url = newUrlList[i][5].replace("http://","http://m.")
-        episodeLinkNumber = newUrlList[i][3]
-        updateDate = newUrlList[i][4]
+        print(i+1,new_url_list[i][1],new_url_list[i][2])
+        url = new_url_list[i][5].replace("http://","http://m.")
+        episode_link_number = new_url_list[i][3]
+        update_date = new_url_list[i][4]
         print(url)
-        soup=pageSourceRetriever(driver, url)  
+        soup=page_source_retriever(driver, url)  
         dates = soup.find_all('div',{'class':'u_comment_info'})
         comments = soup.find_all('p',{'class':'u_comment_text u_comment_txt1'})
         likes = soup.find_all('div',{'class':'u_comment_recomm __comment_recomm'})
         for date in range(len(dates)):
             times = dates[date].text[dates[date].text.find(")")+2:dates[date].text.find(" |")]
             comment = comments[date].text.replace("BEST","") 
-            numbOfLikes = likes[date].find_all('em')
-            likeCounts = []
-            if numbOfLikes:
-                for item in numbOfLikes:
-                    likeCounts.append(int(item.text))
-            idx = int(newUrlList[i][0])
-            name = newUrlList[i][1]
-            episode = newUrlList[i][2]
-            listToAdd = [idx, name, episode, episodeLinkNumber, updateDate, str(date+1), times, likeCounts[0], likeCounts[1], comment]
-            print(listToAdd)
-            completeList.append(listToAdd)            
+            numb_of_likes = likes[date].find_all('em')
+            like_counts = []
+            if numb_of_likes:
+                for item in numb_of_likes:
+                    like_counts.append(int(item.text))
+            idx = int(new_url_list[i][0])
+            name = new_url_list[i][1]
+            episode = new_url_list[i][2]
+            list_to_add = [idx, name, episode, episode_link_number, update_date, str(date+1), times, like_counts[0], like_counts[1], comment]
+            print(list_to_add)
+            completeList.append(list_to_add)            
     driver.close()
-    csv.csvWriter(completeList, bestCommentFile)
+    csv.csvWriter(completeList, best_comment_file)
     print('Done with Best Comments Downloader !!!!')
 
-def getCurrentlyPublishedWebtoon(driver):
+def get_currently_publishing_webtoon(driver):
     url = 'http://comic.naver.com/webtoon/weekday.nhn'
-    soup = pageSourceRetriever(driver, url)
-    currentWebtoonTitles = getListOfWebtoon(soup)
+    soup = page_source_retriever(driver, url)
+    current_webtoon_titles = get_list_of_webtoon(soup)
     
-    return currentWebtoonTitles
+    return current_webtoon_titles
 
-def initializeWebdriver():
+def initialize_webdriver():
     baseurl = 'https://nid.naver.com/nidlogin.login'
     myId = 'stayoungchoi'
     pw = 'Xodud128411#'
@@ -91,186 +93,183 @@ def initializeWebdriver():
     
     return driver
 
-def urlBuilder(webtoonID, episodeNum):
-    if episodeNum == '':
-        url = 'http://comic.naver.com/webtoon/list.nhn?titleId={}'.format(webtoonID)
+def url_builder(webtoon_id, episode_num):
+    if episode_num == '':
+        url = 'http://comic.naver.com/webtoon/list.nhn?titleId={}'.format(webtoon_id)
     else:
-        url = 'http://comic.naver.com/webtoon/detail.nhn?titleId={0}&no={1}'.format(webtoonID,episodeNum)
+        url = 'http://comic.naver.com/webtoon/detail.nhn?titleId={0}&no={1}'.format(webtoon_id,episode_num)
     return url
 
-def updateWebToonList(webToonTitleFile):
-    #Choose One
-    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Kuk/celebtide/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Mycelebscom/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS()
-    currentWebtoon = getCurrentlyPublishedWebtoon(driver)
+def update_webtoon_list(web_toon_title_file):
+
+    driver = webdriver.PhantomJS(executable_path='/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs')
+
+    current_webtoon = get_currently_publishing_webtoon(driver)
     driver.close()
 
     try:
-        savedWebtoon = csv.csvReader_toDict(webToonTitleFile)
-        print("sucessfully loaded", webToonTitleFile,'.csv') 
+        saved_webtoon = csv.csvReader_toDict(web_toon_title_file)
+        print("sucessfully loaded", web_toon_title_file,'.csv') 
     except:
-        savedWebtoon = {}
+        saved_webtoon = {}
         
-    currentWebtoonKeys = list(currentWebtoon)
-    savedWebtoonKeys = list(savedWebtoon)
-    print (len(currentWebtoonKeys), len(savedWebtoonKeys))
-    numberOfChanges = 0
+    current_webtoon_keys = list(current_webtoon)
+    saved_webtoon_keys = list(saved_webtoon)
+    print (len(current_webtoon_keys), len(saved_webtoon_keys))
+    number_of_changes = 0
     
-    addedList = []
-    deletedList = []
+    added_list = []
+    deleted_list = []
     
-    for item in currentWebtoonKeys:
-        if item not in savedWebtoonKeys:
-            savedWebtoon[item] = currentWebtoon[item]
-            addedList.append(currentWebtoon[item])
-            numberOfChanges += 1
+    for item in current_webtoon_keys:
+        if item not in saved_webtoon_keys:
+            saved_webtoon[item] = current_webtoon[item]
+            added_list.append(current_webtoon[item])
+            number_of_changes += 1
     
-    for item in savedWebtoonKeys:
-        if item not in currentWebtoonKeys:
-            deletedList.append(savedWebtoon[item])
-            del savedWebtoon[item]
-            numberOfChanges += 1
+    for item in saved_webtoon_keys:
+        if item not in current_webtoon_keys:
+            deleted_list.append(saved_webtoon[item])
+            del saved_webtoon[item]
+            number_of_changes += 1
     
-    if numberOfChanges == 0 :
+    if number_of_changes == 0 :
         print("No Webtoon List Updates Required")
     else:
-        webtoon_genre.execute()
+        webtoon_database.execute()
         print("Webtoon List Has Been Updated. Automatically overwrites webtoonTitle_current.csv.")
-        if len(deletedList) == 0:
-            deletedList.append("NONE")
-        elif len(addedList) == 0:
-            addedList.append("NONE")    
-        print("Added:",", ".join(addedList),"Deleted:",", ".join(deletedList))
-        csv.csvDictWriter(savedWebtoon, webToonTitleFile)
+        if len(deleted_list) == 0:
+            deleted_list.append("NONE")
+        elif len(added_list) == 0:
+            added_list.append("NONE")    
+        print("Added:",", ".join(added_list),"Deleted:",", ".join(deleted_list))
+        csv.csvDictWriter(saved_webtoon, web_toon_title_file)
     
-    return savedWebtoon, deletedList
+    return saved_webtoon, deleted_list
 
-def getDates(soup):
+def get_dates(soup):
     dates = []
-    dateList = soup.find_all('td',{'class':'num'})
-    for date in dateList:
+    date_list = soup.find_all('td',{'class':'num'})
+    for date in date_list:
         dates.append(date.text.replace(".",""))
     return dates
 
-def getNewThumbnailEpisodeUrl(webToonList, urlDataBase):
-    #Choose One
-    driver = webdriver.PhantomJS(executable_path='/Users/TYchoi/PythonProjects/phantomjs/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Kuk/celebtide/bin/phantomjs')
-#     driver = webdriver.PhantomJS(executable_path='/Users/Mycelebscom/phantomjs/bin/phantomjs')
-    driver2 = webdriver.Chrome()
+def get_new_thumbnail_episode_url(webtoon_list, url_data_base):
+
+    driver = webdriver.PhantomJS(executable_path='/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs')
+
+    driver2 = webdriver.Chrome('/Users/taeyoungchoi/git/web-crawling-naver/chromedriver')
     
-    newList = []
-    for name in sorted(webToonList.keys()):
+    new_list = []
+    for name in sorted(webtoon_list.keys()):
         print('-----------------------------------')
         print(name)
         print('-----------------------------------')
-        url = urlBuilder(webToonList[name], '')
-        nextButtonExists = True
-        while nextButtonExists:
+        url = url_builder(webtoon_list[name], '')
+        next_button_exists = True
+        while next_button_exists:
             print(url)
-            soup = pageSourceRetriever(driver, url)
-            numCount = 0
-            dates = getDates(soup)
-            lastEpisodeNum = soup.find('tbody').find_all('td')
+            soup = page_source_retriever(driver, url)
+            num_count = 0
+            dates = get_dates(soup)
+            last_episode_num = soup.find('tbody').find_all('td')
             recom_num = soup.find('em',{'class':'u_cnt'}).text
             duplicates_appeared = False            
-            for each in lastEpisodeNum:
-                listOfImages = each.find_all('img')
-                for item in listOfImages:
+            for each in last_episode_num:
+                list_of_images = each.find_all('img')
+                for item in list_of_images:
                     if 'title' in str(item) and '배경음악 있음' not in item['title']:
-                        thumbnailLink = item['src']
-                        episodeNumFinder1 = thumbnailLink.find(webToonList[name])+len(webToonList[name])+1
-                        episodeNmeFinder2 = thumbnailLink.find('/inst_thumbnail')
-                        episodeLinkNumber = thumbnailLink[episodeNumFinder1:episodeNmeFinder2]
-                        url = urlBuilder(webToonList[name], episodeLinkNumber)
-#                         cutCounts = cut_count.count_cuts(url.replace("http://","http://m."),driver2, webToonList[name], episodeLinkNumber)
-                        listToAdd = [webToonList[name], recom_num,name,item['title'],episodeLinkNumber,dates[numCount],url,thumbnailLink]
-                        if listToAdd not in urlDataBase:
-                            print(listToAdd)
-                            newList.append(listToAdd)
-                            numCount+=1
+                        thumbnail_link = item['src']
+                        episode_num_finder_1 = thumbnail_link.find(webtoon_list[name])+len(webtoon_list[name])+1
+                        episodeNmeFinder2 = thumbnail_link.find('/inst_thumbnail')
+                        episodeLinkNumber = thumbnail_link[episode_num_finder_1:episodeNmeFinder2]
+                        url = url_builder(webtoon_list[name], episodeLinkNumber)
+#                         cutCounts = cut_count.count_cuts(url.replace("http://","http://m."),driver2, webtoon_list[name], episodeLinkNumber)
+                        list_to_add = [webtoon_list[name], recom_num,name,item['title'],episodeLinkNumber,dates[num_count],url,thumbnail_link]
+                        if list_to_add not in url_data_base:
+                            print(list_to_add)
+                            new_list.append(list_to_add)
+                            num_count+=1
                         else:
-                            numCount+=1
-                            nextButtonExists = False
+                            num_count+=1
+                            next_button_exists = False
                             duplicates_appeared = True
                 if duplicates_appeared:
                     break
                 else:
                     pass
-            if nextButtonExists:
+            if next_button_exists:
                 try :
-                    nextButton = driver.find_element_by_css_selector('a.next')
-                    nextButton.click()
+                    next_button = driver.find_element_by_css_selector('a.next')
+                    next_button.click()
                     url = driver.current_url
                     time.sleep(0.5)
                 except:
-                    nextButtonExists=False
+                    next_button_exists=False
             else:
                 break
     driver.close()
-    return newList
+    return new_list
 
-def thumbNailDownloader(newUrlList):
+def thumbnail_downloader(new_url_list):
     print("downloading thumbnails................")
     counter = 1
-    for url in newUrlList:
+    for url in new_url_list:
         try:
             urllib.request.urlretrieve(url[-1], "thumbnail/"+url[0]+"_"+url[4]+"_"+url[3]+".jpg")
-            print("Done With ",counter,"out of ",len(newUrlList))
+            print("Done With ",counter,"out of ",len(new_url_list))
             counter += 1
         except:
             print('we have a problem with !!'+url[-1])
             counter += 1
     print("done downloading thumbnails!!!")
     
-def dataBaseUpdate(deletedList, webToonUrlFile):
+def data_base_update(deleted_list, web_toon_url_file):
     # if we don't have url database created, we make one.  
     try:
-        urlDataBase = csv.csvReader_toList(webToonUrlFile)
-        print("sucessfully loaded", webToonUrlFile,'.csv')        
+        url_data_base = csv.csvReader_toList(web_toon_url_file)
+        print("sucessfully loaded", web_toon_url_file,'.csv')        
     except:
-        urlDataBase = []       
+        url_data_base = []       
     
-    if deletedList:
-        print('deleting',", ".join(deletedList),"from",webToonUrlFile)
-        for item in urlDataBase:
-            if item[0] in deletedList:
-                urlDataBase.remove(item)
-    return urlDataBase
+    if deleted_list:
+        print('deleting',", ".join(deleted_list),"from",web_toon_url_file)
+        for item in url_data_base:
+            if item[0] in deleted_list:
+                url_data_base.remove(item)
+    return url_data_base
 
 def main():
     # you can change the names of csv files as you wish.
-    webToonUrlFile = 'webToonUrl_current'
-    webToonTitleFile = 'webtoonTitle_current'
-    bestCommentFile = 'webtoonBestComments'
+    webtoon_url_file = 'webToonUrl_current'
+    webtoon_title_file = 'webtoonTitle_current'
+    best_comment_file = 'webtoonBestComments'
     
     # This function opens webtoonTitle_current.csv file,
     # which contains the list of webtoon in our database.
     # Then connects to Naver webtoon page that contains the most current webtoon list.
     # we then compare two lists and updates our webtoon database.
     # it returns the updated webtoon database and webtoon titles that have been removed.
-    webToonList, deletedList = updateWebToonList(webToonTitleFile)
+    webToonList, deletedList = update_webtoon_list(webtoon_title_file)
     
-    # update urlDataBase with webtoons that are currently being published ONLY
-    urlDataBase = dataBaseUpdate(deletedList, webToonUrlFile)
+    # update url_database with webtoons that are currently being published ONLY
+    url_database = data_base_update(deletedList, webtoon_url_file)
      
     # checks if there are new episodes
     # returns urls of thumbnails and episodes that need to be added to database. 
-    newUrlList = getNewThumbnailEpisodeUrl(webToonList, urlDataBase)
+    new_url_list = get_new_thumbnail_episode_url(webToonList, url_database)
  
     # if no updates required, pass
     # else, we 
     # 1. download its thumbnail
     # 2. update our url database
     # 3. retrieve best comments for each episode
-#     newUrlList = csv.csvReader_toList(webToonUrlFile)
-    if len(newUrlList) > 0 :
-        thumbNailDownloader(newUrlList)
-        urlDataBase = urlDataBase + newUrlList
-        csv.csvWriter(urlDataBase, webToonUrlFile)
-        getBestComments(newUrlList, bestCommentFile)    
+#     new_url_list = csv.csvReader_toList(webtoon_url_file)
+    if len(new_url_list) > 0 :
+        thumbnail_downloader(new_url_list)
+        url_database = url_database + new_url_list
+        csv.csvWriter(url_database, webtoon_url_file)
+        get_best_comments(new_url_list, best_comment_file)    
      
     else:
         print("No Webtoon To Update.")

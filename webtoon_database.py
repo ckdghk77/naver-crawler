@@ -118,9 +118,9 @@ def webtoon_sorted_by_genre(driver, genre_list ,day_list):
 
 
 def execute():
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome('/Users/taeyoungchoi/git/web-crawling-naver/chromedriver')
     day_list = webtoon_day_mapping(driver)
     genre_list = webtoon_genre_mapping(driver)
     big_list = webtoon_sorted_by_genre(driver, genre_list, day_list)
     driver.close()
-    csv.csvWriter(big_list, 'webtoon_genre_sorted.csv')    
+    csv.csvWriter(big_list, 'webtoon_database.csv')    
