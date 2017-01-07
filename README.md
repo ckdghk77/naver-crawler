@@ -20,20 +20,20 @@ pip install selenium
 >[PhantomJS](http://phantomjs.org/download.html) is a headless WebKit scriptable with JavaScript. The latest stable release is version 2.1.
 
 ## Usage
-#### 1. Naver Blog
+### 1. Naver Blog
   If you have a list of queries and wish to retrieve related blog posts of the queries, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things during a particular period of time.
 
 ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_blog_crawler.png)
 
 **naver_blog_crawler.py** will generate 2 csv files.  
 
-  * Number of posts : It has the total number of the related blog posts of each query.
+  * The total number of the related blog posts of each query.
 ```
 "query","starting date","ending date","number of posts"
 "도널드 트럼프","20160103","20160103",12
 "힐러리 클린턴","20160103","20160103",9
 ```
-  * Blog posts : It contains actual text of blog posts.
+  * Actual text of blog posts.
 ```
 "query","date posted","url","text"
 "도널드 트럼프","2016.01.03.","http://m.blog.naver.com/didtalk/220586117162","안녕하세요~~ 새해 복 많이 받고 계시죠? 팍팍 받으시기 바랍니다. 위에 나온 두사람의.."
@@ -41,14 +41,24 @@ pip install selenium
 "힐러리 클린턴","2016.01.03.","http://m.blog.naver.com/y3171190y/220586608443","한 해가 가고 새해가 밝았다. 사실 인간이 달력을 만들어 가지고 그냥 카운트한 결과라고..."
 ```
 
-#### 2. Naver Webtoon
+### 2. Naver Webtoon
   If you wish to gather data for webtoons that are currently being published on Naver, run **naver_webtoon_crawler.py**. 
   
   ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_webtoon.png)
   
   **naver_blog_crawler.py** will generate 3 csv files.
-   * A list of current webtoons mapped to the corresponding webtoon ids.
+   * A full list of webtoons have been published on Naver.
 ```
+"679519","mon/thu","episode/daily/comic","대학일기","자까","http://thumb.comic.naver.net/webtoon/679519/thumbnail/title_thumbnail_20160601180804_t83x90.jpg","미완결","컷툰"
+"20853","tue","episode/daily/comic","마음의소리","조석","http://thumb.comic.naver.net/webtoon/20853/thumbnail/thumbnail_title_20853_83x90.gif","미완결","채널링 작품"
+"651673","wed/sat","episode/daily/comic","유미의 세포들","이동건","http://thumb.comic.naver.net/webtoon/651673/thumbnail/title_thumbnail_20151225223121_t83x90.jpg","미완결","컷툰"
+"651664","fri","episode/drama/sensibility","밥 먹고 갈래요?","오묘","http://thumb.comic.naver.net/webtoon/651664/thumbnail/title_thumbnail_20150326153630_t83x90.jpg","미완결","컷툰"
+"680911","완결","episode/comic","무한도전 릴레이툰","무한도전&웹툰작가","http://thumb.comic.naver.net/webtoon/680911/thumbnail/title_thumbnail_20160617193044_t83x90.jpg","완결","일반"
+```
+  
+   * A list of current webtoon titles mapped to the corresponding webtoon ids.
+```
+"title","id"
 "2016 비명","682803"
 "203호 저승사자","670140"
 "3P","666537"
@@ -57,6 +67,7 @@ pip install selenium
 ```
    * A list of current webtoons episodes with their thumbnail urls and episode information including the nubmer of cuts.
 ```
+"id","title","episode","episode_num","date","url","thumbnail"
 "670140","203호 저승사자","28. 오른팔의 자격","28","20160710","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=28","http://thumb.comic.naver.net/webtoon/670140/28/inst_thumbnail_20160708144832.jpg"
 "670140","203호 저승사자","27. 분리수거는 정해진날에","27","20160703","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=27","http://thumb.comic.naver.net/webtoon/670140/27/inst_thumbnail_20160701120826.jpg"
 "670140","203호 저승사자","26. 오랜만에 색칠공부","26","20160626","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=26","http://thumb.comic.naver.net/webtoon/670140/26/inst_thumbnail_20160624121236.jpg"
