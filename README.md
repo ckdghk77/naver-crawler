@@ -49,6 +49,7 @@ pip install selenium
   **naver_blog_crawler.py** will generate 3 csv files.
    * A full list of webtoons have been published on Naver.
 ```
+"id,"publishing day","genre","title","author","thumbnail","complete","type"
 "679519","mon/thu","episode/daily/comic","대학일기","자까","http://thumb.comic.naver.net/webtoon/679519/thumbnail/title_thumbnail_20160601180804_t83x90.jpg","미완결","컷툰"
 "20853","tue","episode/daily/comic","마음의소리","조석","http://thumb.comic.naver.net/webtoon/20853/thumbnail/thumbnail_title_20853_83x90.gif","미완결","채널링 작품"
 "651673","wed/sat","episode/daily/comic","유미의 세포들","이동건","http://thumb.comic.naver.net/webtoon/651673/thumbnail/title_thumbnail_20151225223121_t83x90.jpg","미완결","컷툰"
