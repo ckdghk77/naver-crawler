@@ -42,7 +42,10 @@ pip install selenium
 ```
 
 #### 2. Naver Webtoon
-  If you wish to get data for webtoons that are currently being published on Naver, run **naver_webtoon_crawler.py**. 
+  If you wish to gather data for webtoons that are currently being published on Naver, run **naver_webtoon_crawler.py**. 
+  
+  ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_webtoon.png)
+  
   **naver_blog_crawler.py** will generate 3 csv files.
    * A list of current webtoons mapped to the corresponding webtoon ids.
 ```
