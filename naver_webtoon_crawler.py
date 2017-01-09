@@ -184,8 +184,8 @@ def get_new_thumbnail_episode_url(webtoon_list, url_data_base):
                         episodeNmeFinder2 = thumbnail_link.find('/inst_thumbnail')
                         episodeLinkNumber = thumbnail_link[episode_num_finder_1:episodeNmeFinder2]
                         url = url_builder(webtoon_list[name], episodeLinkNumber)
-#                         cutCounts = cut_count.count_cuts(url.replace("http://","http://m."),driver2, webtoon_list[name], episodeLinkNumber)
-                        list_to_add = [webtoon_list[name], recom_num,name,item['title'],episodeLinkNumber,dates[num_count],url,thumbnail_link]
+                        cut_counts = cut_count.count_cuts(url.replace("http://","http://m."),driver2, webtoon_list[name], episodeLinkNumber)
+                        list_to_add = [webtoon_list[name], recom_num,name,item['title'],episodeLinkNumber,dates[num_count], cut_counts,url,thumbnail_link]
                         if list_to_add not in url_data_base:
                             print(list_to_add)
                             new_list.append(list_to_add)
@@ -208,7 +208,11 @@ def get_new_thumbnail_episode_url(webtoon_list, url_data_base):
                     next_button_exists=False
             else:
                 break
+            """
+            """
+            break
     driver.close()
+    driver2.close()
     return new_list
 
 def thumbnail_downloader(new_url_list):
