@@ -23,7 +23,7 @@ pip install selenium
 ### 1. Naver Blog
   If you have a list of queries and wish to retrieve related blog posts of the queries, run **naver_blog_crawler.py**. You can set different date ranges, so you can see what people are saying about certain things during a particular period of time.
 
-![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_blog_crawler.png)
+![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_blog/naver_blog_crawler.png)
 
 **naver_blog_crawler.py** will generate 2 csv files.  
 
@@ -44,7 +44,7 @@ pip install selenium
 ### 2. Naver Webtoon
   If you wish to gather data for webtoons that are currently being published on Naver, run **naver_webtoon_crawler.py**. 
   
-  ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_webtoon.png)
+  ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_webtoon/naver_webtoon.png)
   
   **naver_blog_crawler.py** will generate 4 csv files.
    * A full list of webtoons that have ever been published on Naver.
