@@ -46,8 +46,8 @@ pip install selenium
   
   ![image](https://github.com/TY-Choi/web-crawling-naver/blob/master/naver_webtoon.png)
   
-  **naver_blog_crawler.py** will generate 3 csv files.
-   * A full list of webtoons have been published on Naver.
+  **naver_blog_crawler.py** will generate 4 csv files.
+   * A full list of webtoons that have ever been published on Naver.
 ```
 "id,"publishing day","genre","title","author","thumbnail","complete","type"
 "679519","mon/thu","episode/daily/comic","대학일기","자까","http://thumb.comic.naver.net/webtoon/679519/thumbnail/title_thumbnail_20160601180804_t83x90.jpg","미완결","컷툰"
@@ -66,19 +66,22 @@ pip install selenium
 "3인칭","682265"
 "MZ","675830"
 ```
-   * A list of current webtoons episodes with their thumbnail urls and episode information including the nubmer of cuts.
+   * A list of webtoons episodes with meta data such as the number of recommendations by users, epidsode title, published date, the number of cuts, URL and thumbnail address.
 ```
-"id","title","episode","episode_num","date","url","thumbnail"
-"670140","203호 저승사자","28. 오른팔의 자격","28","20160710","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=28","http://thumb.comic.naver.net/webtoon/670140/28/inst_thumbnail_20160708144832.jpg"
-"670140","203호 저승사자","27. 분리수거는 정해진날에","27","20160703","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=27","http://thumb.comic.naver.net/webtoon/670140/27/inst_thumbnail_20160701120826.jpg"
-"670140","203호 저승사자","26. 오랜만에 색칠공부","26","20160626","http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=26","http://thumb.comic.naver.net/webtoon/670140/26/inst_thumbnail_20160624121236.jpg"
+"id","recom_num","title","episode","episode_num","date","cut_num","url","thumbnail"
+"670140", "70,385", "203호 저승사자", "54. 투철한 신고정신", "54", "20170108", 7, "http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=54", "http://thumb.comic.naver.net/webtoon/670140/54/inst_thumbnail_20170105183134.jpg"
+"670140", "70,385", "203호 저승사자", "53. 옮는거죠 그거", "53", "20170101", 15, "http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=53", "http://thumb.comic.naver.net/webtoon/670140/53/inst_thumbnail_20161229164019.jpg"
+"670140", "70,385", "203호 저승사자", "52. 누가 좀 가져가줘", "52", "20161225", 21, "http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=52", "http://thumb.comic.naver.net/webtoon/670140/52/inst_thumbnail_20161222200313.jpg"
+"670140", "70,385", "203호 저승사자", "51.문 고치는 데만 얼마야", "51", "20161218", 26, "http://comic.naver.com/webtoon/detail.nhn?titleId=670140&no=51", "http://thumb.comic.naver.net/webtoon/670140/51/inst_thumbnail_20161215200001.jpg"
 ```
    * A list of highly rated comments that are submitted / evaluated by users.
 ```
+"id", "title", "episode", "episode_num", "date", "likes", "rank", "comment_submitted", "up", "down", "text"
 169080,"Penguin loves Mev","623화 새들의 집","628","20160728","1","2016-07-28 23:15",2668,24,"이 에피소드를 본 메브 반응이 궁금하네요ㅎㅎ "
 169080,"Penguin loves Mev","623화 새들의 집","628","20160728","2","2016-07-28 23:17",1782,17,"메브 이거보고 많이 시무룩하실것같애요ㅜㅜ 그와중에 두분다 너무 어린아이같아서 귀여워요♥"
 169080,"Penguin loves Mev","623화 새들의 집","628","20160728","3","2016-07-28 23:21",1352,19,"ㅋㅋㅋㅋㅋ 메브님 기분 좋으라고 새가 된  펭귄님 ㅋㅋㅋㅋㅋㅋ 사실 펭귄도 원래 조류였죠? 서로를 생각하는 모습이 넘 예쁘신 커플 같아요."
 ```
+
 #### 3. Naver News
   **naver_news.py** will generate 3 csv files.
    * A list of current webtoons mapped to the corresponding webtoon ids.
