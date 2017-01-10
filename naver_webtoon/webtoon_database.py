@@ -1,8 +1,12 @@
-'''
+"""
 Created on Aug 1, 2016
 
 @author: TYchoi
-'''
+
+webtoon_database.py constructs and updates the webtoon database when changes occur.
+The structure of database consists of 
+"id,"publishing_day","genre","title","author","thumbnail","complete","type".
+"""
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -10,6 +14,15 @@ import csvHandler as csv
 
 
 def webtoon_day_mapping(driver):
+    """
+    Maps a webtoon id with their corresponding publishing days
+
+    Args:
+        driver: an initialized webdriver 
+    Returns:
+        day_list: a list that contains publishing day information for each webtoon
+    """
+    
     days_format = 'http://comic.naver.com/webtoon/weekdayList.nhn?week='
     days = ['mon','tue','wed','thu','fri','sat','sun']
     day_list = []
@@ -26,12 +39,30 @@ def webtoon_day_mapping(driver):
     return day_list
 
 def get_soup(driver, url):
+    """
+    Creates page source of a webpage of a given URL as a BeautifulSoup file
+
+    Args:
+        driver : currently active webdriver
+        url : a webpage URL we want to load 
+    Returns:
+        soup: BeautifulSoup page source file 
+    """
+
     driver.get(url)
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'lxml')
     return soup
 
 def webtoon_genre_mapping(driver):
+    """
+    Maps a webtoon id with its corresponding genre
+
+    Args:
+        driver: an initialized webdriver 
+    Returns:
+        full_genre_list: a list that contains genre information for each webtoon
+    """
     url= 'http://comic.naver.com/webtoon/genre.nhn?genre=episode'
     soup = get_soup(driver, url)
     full_genre_list = [] 
@@ -45,6 +76,16 @@ def webtoon_genre_mapping(driver):
     return full_genre_list
 
 def check_for_duplicates(webtoon_id, full_list):
+    """
+    Check if an webtoon appears multiple times in database. If so, how many times?
+
+    Args:
+        webtoon_id: a webtoon id
+        full_list: a constructed database  
+    Returns:
+        is_duplicate: a boolean whether a webtoon id appears multiple times or not
+        counter: how many entries of a webtoon id has
+    """
     is_duplicate = False
     counter = 0
     for big_item in full_list:
@@ -56,7 +97,17 @@ def check_for_duplicates(webtoon_id, full_list):
     return is_duplicate, counter
 
 def need_all_days(webtoon, day_list):
-    ids = subimages = webtoon.find('div',{'class':'thumb'}).find_all('a')
+    """
+    Saves all the days that a webtoon gets published. A webtoon can be published a multiple times per week.
+    
+    Args:
+        webtoon: a soup object that highlights a webtoon data
+        day_list: a list of webtoon -> day mapping 
+    Returns:
+        this_id: the id of the webtoon
+        days: A concatenated String of all days that the webtoon gets published
+    """
+    ids =  webtoon.find('div',{'class':'thumb'}).find_all('a')
     for iD in ids:
         this_id = iD['href'][iD['href'].find('titleId=')+8:]
         days = []
@@ -66,6 +117,19 @@ def need_all_days(webtoon, day_list):
     return this_id, days
 
 def get_datails(webtoon, day_list, big_list, genre):
+    """
+    Saves all meta data related to a webtoon, which includes 
+    "id,"publishing_day","genre","title","author","thumbnail","complete","type".
+    
+    Args:
+        webtoon: a soup object that highlights a webtoon data
+        day_list: a list of webtoon -> day mapping 
+        big_list: the complete list we want to build to save as database
+        genre: a list of webtoon -> genre mapping
+    Returns:
+        small_list: a list that contains all meta data on a given webtoon (will be added to the big_list).
+    """   
+    
     this_id, days = need_all_days(webtoon, day_list)
     is_duplicate, counter = check_for_duplicates(this_id, big_list)
     
@@ -103,7 +167,18 @@ def get_datails(webtoon, day_list, big_list, genre):
         small_list.append(webtoon_type[0])
     return small_list
 
-def webtoon_sorted_by_genre(driver, genre_list ,day_list):
+def build_database(driver, genre_list, day_list):
+    """
+    Builds database by accessing the most current data on Naver
+    
+    Args:
+        driver: an initialized webdriver
+        genre_list: a list of webtoon -> genre mapping
+        day_list: a list of webtoon -> day mapping 
+    Returns:
+        big_list: the complete list we want to build to save as database
+    """   
+        
     big_list = []
     for url2 in genre_list:
         url = url2[0]
@@ -116,10 +191,18 @@ def webtoon_sorted_by_genre(driver, genre_list ,day_list):
     return big_list
 
 
-def execute():
-    driver = webdriver.Chrome('/Users/taeyoungchoi/git/web-crawling-naver/chromedriver')
+def execute(chrome_path):
+    """
+    Runs webtoon_databse.py.
+    
+    Args:
+        chrome_path : the executable Chrome driver path 
+    Raises:
+        selenium.common.exceptions.WebDriverException: the webdriver cannot be found
+    """   
+    driver = webdriver.Chrome(chrome_path)
     day_list = webtoon_day_mapping(driver)
     genre_list = webtoon_genre_mapping(driver)
-    big_list = webtoon_sorted_by_genre(driver, genre_list, day_list)
+    big_list = build_database(driver, genre_list, day_list)
     driver.close()
     csv.csvWriter(big_list, 'webtoon_database.csv')    

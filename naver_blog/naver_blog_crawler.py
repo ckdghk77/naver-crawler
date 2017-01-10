@@ -16,7 +16,8 @@ import excelHandler as excel
 import csvHandler as csv
     
 def max_num_finder(soup):
-    """Calculate the number of result pages.
+    """
+    Calculate the number of result pages.
     If there are no results regarding a given query, it simply returns zero.
 
     Args:
@@ -45,7 +46,8 @@ def max_num_finder(soup):
     return num_of_posts, maxnum
 
 def url_generator(search_query, from_date, to_date, page_num):
-    """Generates url in an appropriate format.
+    """
+    Generates url in an appropriate format.
 
     Args:
         search_query: search word
@@ -65,7 +67,8 @@ def url_generator(search_query, from_date, to_date, page_num):
     return search_url
 
 def date_range_generator(starting_date, to_date):
-    """Divides the date range into 3-month-periods
+    """
+    Divides the date range into 3-month-periods
     Naver only displays 1000 results per search.
     For a longer period of time, we may lose a large amount of data.
 
@@ -115,7 +118,8 @@ def date_range_generator(starting_date, to_date):
     return three_months_periods
 
 def page_source_retriever(driver, search_url):
-    """Creates page source of a webpage as a BeautifulSoup file
+    """
+    Creates page source of a webpage as a BeautifulSoup file
 
     Args:
         driver : currently active webdriver
@@ -129,7 +133,8 @@ def page_source_retriever(driver, search_url):
     return soup
 
 def get_hrefs(soup):
-    """Creates a list of urls to the blog posts on a search page 
+    """
+    Creates a list of urls to the blog posts on a search page 
 
     Args:
         soup: BeautifulSoup page source file 
@@ -141,7 +146,8 @@ def get_hrefs(soup):
     return href
 
 def get_date(soup):
-    """Creates a list of created dates of the blog posts on a search page 
+    """
+    Creates a list of created dates of the blog posts on a search page 
 
     Args:
         soup: BeautifulSoup page source file 
@@ -152,20 +158,22 @@ def get_date(soup):
         date = item.text.split(" ")[0]
     return date
 
-def build_blog_list(query_list, date_range):
-    """Creates a full list of blog posts 
+def build_blog_list(query_list, date_range, phantom_path):
+    """
+    Creates a full list of blog posts 
 
     Args:
         query_list : list of queries
         date_rage : a user set date range 
+        phantom_path : the executable path of PhantomJS
     Returns:
         buzz_info : the total number of posts created of queries 
         list_of_poists : a list of all posts that contains queries, dates created, date ranges and urls of each blog post
     Raises:
-        selenium.common.exceptions.WebDriverException: webdriver cannot be found
+        selenium.common.exceptions.WebDriverException: the webdriver cannot be found
     """
     
-    driver = webdriver.PhantomJS(executable_path='/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs')
+    driver = webdriver.PhantomJS(executable_path=phantom_path)
 
     buzz_info = []
     list_of_posts = []
@@ -194,19 +202,21 @@ def build_blog_list(query_list, date_range):
     
     return buzz_info, list_of_posts
 
-def blog_contents_crawler(list_of_posts):
-    """Appends actual text of each blog post to the list of posts by visiting each page
+def blog_contents_crawler(list_of_posts, phantom_path):
+    """
+    Appends actual text of each blog post to the list of posts by visiting each page
     Visits Naver blogs ONLY.
 
     Args:
         list_of_poists : a list of all posts that contains queries, dates created, date ranges and urls of each blog post
+        phantom_path : the executable PhantomJS path
     Returns:
         list_of_poists : updated list of all posts with text data
     Raises:
-        selenium.common.exceptions.WebDriverException: webdriver cannot be found
+        selenium.common.exceptions.WebDriverException: the webdriver cannot be found
     """
 
-    driver = webdriver.PhantomJS(executable_path='/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs')
+    driver = webdriver.PhantomJS(executable_path=phantom_path)
     
     driver.set_page_load_timeout(10)
     for i in range(len(list_of_posts)):    
@@ -245,26 +255,29 @@ def blog_contents_crawler(list_of_posts):
     return list_of_posts
     
 def main():
-    """Read an excel file that contains a list of queries then outputs two csv files with gathered information
+    """
+    Read an excel file that contains a list of queries then outputs two csv files with gathered information
 
     Raises : 
         FileNotFoundError: an excel file that contains a list of queries cannot be found
     """
     
-    query_list_file = 'naver_blog/'
+    phantom_path = '/Users/taeyoungchoi/git/web-crawling-naver/phantomjs/bin/phantomjs'
+    
+    query_list_file = ''
     starting_date = ''
     ending_date = ''
     
-    buzz_output_file = 'naver_blog/'
-    blog_text_output_file = 'naver_blog/'
+    buzz_output_file = ''
+    blog_text_output_file = ''
 
     query_list = excel.excelReader(query_list_file)
     date_range = date_range_generator(starting_date, ending_date)
     
-    buzz_info, list_of_posts = build_blog_list(query_list, date_range)
+    buzz_info, list_of_posts = build_blog_list(query_list, date_range, phantom_path)
     csv.csvWriter(buzz_info, buzz_output_file) 
         
-    blog_contents = blog_contents_crawler(list_of_posts)
+    blog_contents = blog_contents_crawler(list_of_posts, phantom_path)
     csv.csvWriter(blog_contents, blog_text_output_file)
      
 if __name__ == "__main__":
