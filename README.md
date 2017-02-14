@@ -4,9 +4,6 @@
 
 1. [Naver Blog](http://section.blog.naver.com/)
 2. [Naver Webtoon](http://comic.naver.com/index.nhn)
-3. [Naver News](http://news.naver.com/)
-4. [Naver People Search](http://people.search.naver.com/)
-5. [Naver Movie](http://movie.naver.com/)
 
 ## Installation
 
@@ -81,7 +78,3 @@ pip install selenium
 169080,"Penguin loves Mev","623화 새들의 집","628","20160728","2","2016-07-28 23:17",1782,17,"메브 이거보고 많이 시무룩하실것같애요ㅜㅜ 그와중에 두분다 너무 어린아이같아서 귀여워요♥"
 169080,"Penguin loves Mev","623화 새들의 집","628","20160728","3","2016-07-28 23:21",1352,19,"ㅋㅋㅋㅋㅋ 메브님 기분 좋으라고 새가 된  펭귄님 ㅋㅋㅋㅋㅋㅋ 사실 펭귄도 원래 조류였죠? 서로를 생각하는 모습이 넘 예쁘신 커플 같아요."
 ```
-
-#### 3. Naver News
-  **naver_news.py** will generate 3 csv files.
-   * A list of current webtoons mapped to the corresponding webtoon ids.
