@@ -105,9 +105,18 @@ def count_cuts(url, driver, webtoon_id, episode_number):
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
         urllib.request.install_opener(opener)
 
-        try :
-            urllib.request.urlretrieve(img_url, save_name)
-        except:
+        retry_no = 30;
+
+        while retry_no > 0:  # re-try until success
+
+            try:
+                urllib.request.urlretrieve(img_url, save_name)
+                break;
+            except:
+                retry_no -= 1;
+                time.sleep(np.random.uniform(low=0.5, high=3.0))
+
+        if retry_no <= 0:
             break;
 
         im = Image.open(save_name);

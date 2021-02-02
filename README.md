@@ -27,4 +27,5 @@ pytohn naver_webtoon_crawler.py
 
 
 ## Improvement of scene cutting policy
+>edited version can more elaborately cut
 ![image](https://github.com/ckdghk77/naver-crawler/blob/master/fig/edited_cutting_policy.png)
