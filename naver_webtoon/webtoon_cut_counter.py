@@ -26,11 +26,16 @@ def define_non_white_region(total_img):
     """
     Defines non-white region : images locations
 
+    Our cutting policy is as follows:
+     1) Detecting edges.
+     2) Read horizontal pixels of the edge-detected image through top to bottom. (see webtoon_cut_counter.py
+       3-1) If (edge info =0 -> >0) ==> beginning of image
+       3-2) elif (edge info >0 -> =0) ==> end of image
+
     Args:
-        height_length : the height of the image
-        height_pix_list : the list of height indices that contains all white rows
+        total_img : Appended image
     Returns:
-        white_region : a list of height indices, where a image starts or ends
+        start_height_list, end_height_list
     """
 
     width_length, height_length = total_img.size
@@ -142,9 +147,10 @@ def count_cuts(url, driver, webtoon_id, episode_number):
 
 def crop_image(total_img, non_white_start, non_white_end, webtoon_id, episode_number):
     """
-    Crops an large image that contains multiple cuts into individual cuts.
+    Remove small cuts or simple colored cuts.
 
     Args:
+        total_img : Appended image
         non_white_start : a list of height indices, where a image starts
         non_white_end : a list of height indices, where a image ends
         save_name : the name of an image file
@@ -162,7 +168,6 @@ def crop_image(total_img, non_white_start, non_white_end, webtoon_id, episode_nu
         os.mkdir(folder_name)
 
     for i in range(len(non_white_start)) :
-
 
         if non_white_end[i] - non_white_start[i] > 200:
             img_out = total_img.crop((0, non_white_start[i], width_length, non_white_end[i]));
