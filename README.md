@@ -1,6 +1,6 @@
 # webtoon-crawling-naver (edited on Feb, 2021)
 
-  **webtoon-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is the biggest Korean search engine, using [selenium](http://selenium-python.readthedocs.io/). The code mainly originated from the original implementation (taeyoung-choi/naver-crawler).
+  **webtoon-crawling-naver** is an automated bot that gathers and updates web content on [Naver](http://www.naver.com/), which is the biggest Korean search engine, using [selenium](http://selenium-python.readthedocs.io/). The code mainly originated from the original implementation ([@taeyoung-choi](https://www.github.com/taeyoung-choi/naver-crawler)).
    The updated version has following difference:
    
 1. fixed minor bugs in 2021.
@@ -27,5 +27,5 @@ pytohn naver_webtoon_crawler.py
 
 
 ## Improvement of scene cutting policy
->edited version can more elaborately cut
+>edited version can more elaborately cut (previous version ([@taeyoung-choi](https://www.github.com/taeyoung-choi/naver-crawler)) has many missing cuts)
 ![image](https://github.com/ckdghk77/naver-crawler/blob/master/fig/edited_cutting_policy.png)
