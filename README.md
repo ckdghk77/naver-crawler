@@ -10,7 +10,9 @@
  1) Appending every partial image.
  2) Detecting edges.
  3) Read horizontal pixels of the edge-detected image through top to bottom. (see webtoon_cut_counter.py
+ 
    3-1) If (edge info =0 -> >0) ==> beginning of image
+   
    3-2) elif (edge info >0 -> =0) ==> end of image
  
 ## Installation
