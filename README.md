@@ -9,7 +9,7 @@
  Our cutting policy is as follows:
  * Appending every partial image.
  * Detecting edges.
- * Read horizontal pixels of the edge-detected image through top to bottom. (see webtoon_cut_counter.py
+ * Read horizontal pixels of the edge-detected image through top to bottom.
    * If (edge info =0 -> >0) ==> beginning of image
    * elif (edge info >0 -> =0) ==> end of image
  
